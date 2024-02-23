@@ -7,6 +7,7 @@ import { TextInput, PasswordInput, Button, Paper, Container, Title } from '@mant
 
 import { useLogin } from '@/hook/useLogin'
 import { useRouter } from 'next/navigation'
+
 export const Login = () => {
   const { mutate: login, data, isSuccess, isError, isPending } = useLogin()
   useEffect(() => {
@@ -31,14 +32,14 @@ export const Login = () => {
 
   return (
     <Container size={420} my={40}>
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+      <Paper p={30} mt={30} radius={12} bg="#F0F0F4">
         <form onSubmit={form.onSubmit(handleLogin)}>
           <Title ta="center"> Вход</Title>
 
           <TextInput {...form.getInputProps('username')} mt="xs" size="xl" placeholder="Логин" />
           <PasswordInput {...form.getInputProps('password')} mt="xs" size="xl" placeholder="Пароль" />
           <Button type="submit" loading={isPending} mt="lg" size="xl" fullWidth>
-            Войти
+            Войти 
           </Button>
         </form>
       </Paper>

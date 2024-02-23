@@ -1,7 +1,9 @@
 'use client'
 
+import PrivateRoute from '@/routes/private/PrivateRoute'
+
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <div>{children}</div>
+  return <PrivateRoute>{children}</PrivateRoute>
 }
 
 export default Layout

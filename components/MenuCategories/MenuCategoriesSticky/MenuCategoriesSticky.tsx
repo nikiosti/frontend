@@ -2,7 +2,6 @@
 
 import { RestaurantMenu } from '@/types/RestaurantMenu'
 import { Box, Button, ScrollArea } from '@mantine/core'
-import { UseQueryResult } from '@tanstack/react-query'
 
 export const MenuCategoriesSticky = ({ restaurantMenu }: { restaurantMenu: RestaurantMenu | undefined }) => {
   const scroll = (id: string) => {

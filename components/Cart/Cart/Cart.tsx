@@ -4,7 +4,6 @@ import { Avatar, Group, Paper, Text } from '@mantine/core'
 
 import { useShallow } from 'zustand/react/shallow'
 import { useMenuStore } from '@/store/Menu/Menu'
-
 import { PlusMinusQuantity } from '@/components/PlusMinusQuantity/PlusMinusQuantity'
 
 export const Cart = () => {

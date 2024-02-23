@@ -9,8 +9,8 @@ export const Item = ({ item, onActionClick }: { item: ItemType; onActionClick: (
   return (
     <>
       <Card
+        withBorder={false}
         p="xs"
-        shadow="lg"
         className={styles.card}
         radius="md"
         onClick={() => {
