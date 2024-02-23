@@ -1,0 +1,9 @@
+.card {
+  position: relative;
+}
+
+.title {
+  right: 1;
+  z-index: 2;
+  position: absolute;
+}

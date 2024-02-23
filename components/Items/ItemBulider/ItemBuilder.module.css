@@ -1,0 +1,11 @@
+.card {
+  position: relative;
+  height: rem(400px);
+
+  background-color: var(--mantine-color-green-6);
+  border-radius: 12px;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    width: 100%;
+  }
+}
