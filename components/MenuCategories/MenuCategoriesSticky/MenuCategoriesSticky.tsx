@@ -1,8 +1,9 @@
 'use client'
 
 import { RestaurantMenu } from '@/types/RestaurantMenu'
-import { Box, Button, ScrollArea } from '@mantine/core'
+import { Box, Button, Paper, ScrollArea } from '@mantine/core'
 
+import styles from './MenuCategoriesSticky.module.css'
 export const MenuCategoriesSticky = ({ restaurantMenu }: { restaurantMenu: RestaurantMenu | undefined }) => {
   const scroll = (id: string) => {
     const element = document.getElementById(id)
@@ -13,15 +14,20 @@ export const MenuCategoriesSticky = ({ restaurantMenu }: { restaurantMenu: Resta
       })
     }
   }
+
   return (
-    <Box pb={10} bg="#F0F0F4" hiddenFrom="lg" style={{ position: 'sticky', top: 79, zIndex: 2 }}>
-      <ScrollArea style={{ whiteSpace: 'nowrap' }}>
+    <Box pb={10} bg="#F0F0F4" hiddenFrom="lg" className={styles.container}>
+      <ScrollArea
+        scrollbarSize={2}
+        classNames={{
+          root: styles.items,
+        }}
+      >
         {restaurantMenu?.categories.map((category, index) => (
-          <Box
-            display="inline"
-            key={index}
-            mr="xs"
+          <Button
             size="md"
+            className={styles.button}
+            key={index}
             variant="white"
             color="dark"
             onClick={() => {
@@ -29,7 +35,7 @@ export const MenuCategoriesSticky = ({ restaurantMenu }: { restaurantMenu: Resta
             }}
           >
             {category.name}
-          </Box>
+          </Button>
         ))}
       </ScrollArea>
     </Box>

@@ -4,6 +4,7 @@ import { Item } from '@/components/Items/Item/Item'
 import { useGetData } from '@/hook/useGetData'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
 import {
+  ActionIcon,
   AppShell,
   Box,
   Burger,
@@ -39,7 +40,7 @@ import { CartTitle } from '@/components/Cart/CartTitle/CartTitle'
 import { CartTotal } from '@/components/Cart/CartTotal/CartTotal'
 
 import { MenuCategoriesSticky } from '@/components/MenuCategories/MenuCategoriesSticky/MenuCategoriesSticky'
-import { IconSearch } from '@tabler/icons-react'
+import { IconBasket, IconSearch } from '@tabler/icons-react'
 
 const MenuLayout = ({ children, params }: { children: React.ReactNode; params: { menuId: string } }) => {
   const { data }: UseQueryResult<RestaurantMenu> = useGetData(
@@ -64,7 +65,7 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
       <AppShell.Header bg="#F0F0F4" className={styles.header} p="xs">
         <Group h="100%" wrap="nowrap" preventGrowOverflow={false} w="100%" justify="space-between" pr="xs">
           <Group wrap="nowrap" preventGrowOverflow={false}>
-            <Image src="/logotype.svg" w={55} />
+            {/* <Image src="/logotype.svg" w={55} /> */}
             <div>
               <h2>Едадед</h2>
               <Text c="dimmed" size="sm">
@@ -74,10 +75,14 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
           </Group>
           {items.length ? (
             <Indicator color="dark" radius="xl" label={items.length} size={20} hiddenFrom="lg">
-              <Burger onClick={toggle} opened={opened} />
+              <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30}>
+                <IconBasket stroke={1.5} size={30} />
+              </ActionIcon>
             </Indicator>
           ) : (
-            <Burger hiddenFrom="lg" onClick={toggle} opened={opened} />
+            <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30} hiddenFrom="lg">
+              <IconBasket stroke={1.5} size={30} />
+            </ActionIcon>
           )}
         </Group>
       </AppShell.Header>
