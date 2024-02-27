@@ -18,6 +18,7 @@ export const MenuCategoriesSticky = ({ restaurantMenu }: { restaurantMenu: Resta
   return (
     <Box pb={10} bg="#F0F0F4" hiddenFrom="lg" className={styles.container}>
       <ScrollArea
+        offsetScrollbars="x"
         scrollbarSize={2}
         classNames={{
           root: styles.items,
