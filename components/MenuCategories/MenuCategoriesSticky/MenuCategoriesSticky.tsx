@@ -17,7 +17,8 @@ export const MenuCategoriesSticky = ({ restaurantMenu }: { restaurantMenu: Resta
     <Box pb={10} bg="#F0F0F4" hiddenFrom="lg" style={{ position: 'sticky', top: 79, zIndex: 2 }}>
       <ScrollArea style={{ whiteSpace: 'nowrap' }}>
         {restaurantMenu?.categories.map((category, index) => (
-          <Button
+          <Box
+            display="inline"
             key={index}
             mr="xs"
             size="md"
@@ -28,7 +29,7 @@ export const MenuCategoriesSticky = ({ restaurantMenu }: { restaurantMenu: Resta
             }}
           >
             {category.name}
-          </Button>
+          </Box>
         ))}
       </ScrollArea>
     </Box>
