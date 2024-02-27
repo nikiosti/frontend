@@ -21,10 +21,10 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 
         const decodedToken = jwtDecode<TokenPayload>(token)
 
-        if (decodedToken.exp * 1000 < Date.now()) {
-          router.push('/login')
-          return
-        }
+        // if (decodedToken.exp * 1000 < Date.now()) {
+        //   router.push('/login')
+        //   return
+        // }
 
         setLoading(false)
       } catch (error) {

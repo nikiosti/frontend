@@ -4,7 +4,7 @@ import { useDeleteData } from '@/hook/useDeleteData'
 import { usePatchData } from '@/hook/usePatchData'
 import { CategoryItem } from '@/types/Category'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
-import { Box, Button, Group, Modal, Paper, Text, UnstyledButton } from '@mantine/core'
+import { Box, Button, Modal, Paper, Text, UnstyledButton } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { CategoryForm } from '@/components/Category/CategoryForm/CategoryForm'
@@ -18,13 +18,13 @@ const CategoryCard = ({
   onOpenCategoryModal: (form: CategoryItem) => void
 }) => {
   return (
-    <UnstyledButton onClick={() => onOpenCategoryModal(category)} w="100%">
-      <Paper my="xs" px="xs" radius={12} withBorder>
-        <Group mih={66}>
-          <Text>{category.name}</Text>
-        </Group>
-      </Paper>
-    </UnstyledButton>
+    <Paper p="xs" my="xs" radius={12}>
+      <UnstyledButton my={0} onClick={() => onOpenCategoryModal(category)} w="100%">
+        <Text fw={500} fz="xl">
+          {category.name}
+        </Text>
+      </UnstyledButton>
+    </Paper>
   )
 }
 
@@ -67,7 +67,6 @@ export const Categories = ({ menu }: { menu: RestaurantMenu | undefined }) => {
           form={form}
           formSubmit={() => {
             patchCategory({ key: `category/${form.values.id}/`, datas: form.values })
-
             closeCategory()
           }}
         >

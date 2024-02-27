@@ -3,7 +3,22 @@
 import { Item } from '@/components/Items/Item/Item'
 import { useGetData } from '@/hook/useGetData'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
-import { AppShell, Box, Burger, Group, Modal, RemoveScroll, ScrollArea, SimpleGrid, Text } from '@mantine/core'
+import {
+  AppShell,
+  Box,
+  Burger,
+  Container,
+  Group,
+  Image,
+  Indicator,
+  Modal,
+  RemoveScroll,
+  ScrollArea,
+  SimpleGrid,
+  Stack,
+  Text,
+  TextInput,
+} from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { UseQueryResult } from '@tanstack/react-query'
 
@@ -24,6 +39,7 @@ import { CartTitle } from '@/components/Cart/CartTitle/CartTitle'
 import { CartTotal } from '@/components/Cart/CartTotal/CartTotal'
 
 import { MenuCategoriesSticky } from '@/components/MenuCategories/MenuCategoriesSticky/MenuCategoriesSticky'
+import { IconSearch } from '@tabler/icons-react'
 
 const MenuLayout = ({ children, params }: { children: React.ReactNode; params: { menuId: string } }) => {
   const { data }: UseQueryResult<RestaurantMenu> = useGetData(
@@ -46,8 +62,23 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
       aside={{ width: 400, breakpoint: 'lg', collapsed: { desktop: false, mobile: true } }}
     >
       <AppShell.Header bg="#F0F0F4" className={styles.header} p="xs">
-        <Group h="100%" justify="space-between">
-          <Burger hiddenFrom="lg" onClick={toggle} opened={opened} />
+        <Group h="100%" wrap="nowrap" preventGrowOverflow={false} w="100%" justify="space-between" pr="xs">
+          <Group wrap="nowrap" preventGrowOverflow={false}>
+            <Image src="/logotype.svg" w={55} />
+            <div>
+              <h2>Едадед</h2>
+              <Text c="dimmed" size="sm">
+                Электронное меню
+              </Text>
+            </div>
+          </Group>
+          {items.length ? (
+            <Indicator color="dark" radius="xl" label={items.length} size={20} hiddenFrom="lg">
+              <Burger onClick={toggle} opened={opened} />
+            </Indicator>
+          ) : (
+            <Burger hiddenFrom="lg" onClick={toggle} opened={opened} />
+          )}
         </Group>
       </AppShell.Header>
 

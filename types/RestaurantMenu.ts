@@ -16,7 +16,7 @@ export type Item = {
   prices: ItemPrice[]
 }
 
-type Category = {
+export type Category = {
   id: string
   items: Item[]
   name: string

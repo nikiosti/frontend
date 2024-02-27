@@ -13,9 +13,6 @@ export const CartTotal = ({ items }: { items: GroupedItem[] }) => {
       <Text fw={500} size="xl">
         К оплате {totalPrice} рублей
       </Text>
-      <Text c="dimmed" size="sm">
-        {items.length} позиции
-      </Text>
     </Paper>
   )
 }

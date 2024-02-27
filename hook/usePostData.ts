@@ -1,7 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import axiosClient from '@/service/axiosInstance'
-import { Item } from '@/types/RestaurantMenu'
-
 
 
 interface Params {
