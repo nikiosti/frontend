@@ -48,7 +48,12 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
   const [item, setItem] = useState<ItemType>()
   const [clearItems, items] = useMenuStore(useShallow((state) => [state.clearItems, state.items]))
 
-  const pinned = useHeadroom({ fixedAt: 160 })
+  const pinned = useHeadroom({
+    fixedAt: 160,
+    onFix() {
+      return false
+    },
+  })
   const matches = useMediaQuery('(min-width: 74em)')
 
   return (
