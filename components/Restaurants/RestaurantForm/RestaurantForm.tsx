@@ -46,7 +46,7 @@ export const RestaurantForm = ({
       </Dropzone>
       <TextInput {...form.getInputProps('address')} mt="xs" label="Адрес заведения" placeholder="Метро Первомайская" />
 
-      <Group grow mt="xs">
+      <Group wrap="wrap" mt="xs">
         {children}
       </Group>
     </form>

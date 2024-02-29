@@ -38,8 +38,8 @@ export const Login = () => {
 
           <TextInput {...form.getInputProps('username')} mt="xs" size="xl" placeholder="Логин" />
           <PasswordInput {...form.getInputProps('password')} mt="xs" size="xl" placeholder="Пароль" />
-          <Button type="submit" loading={isPending} mt="lg" size="xl" fullWidth>
-            Войти 
+          <Button type="submit" loading={isPending} mt="lg" fullWidth radius="xl">
+            Войти
           </Button>
         </form>
       </Paper>

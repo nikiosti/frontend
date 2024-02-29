@@ -1,8 +1,10 @@
 import axios from 'axios'
 
+import { BASE_URL, BASE_TOKEN_REFRESH } from './url'
+
 //TODO CHANGE CONTENT-TYPE
 const axiosClient = axios.create({
-  baseURL: 'https://nikiostin.pythonanywhere.com/api/',
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'multipart/form-data',
   },
@@ -34,7 +36,7 @@ axiosClient.interceptors.response.use(
       originalRequest._retry = true
 
       try {
-        const { data } = await axios.post('https://nikiostin.pythonanywhere.com/api/token/refresh/', {
+        const { data } = await axios.post(BASE_TOKEN_REFRESH, {
           refresh: localStorage.getItem('refresh'),
         })
 

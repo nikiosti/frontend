@@ -12,7 +12,7 @@ import { ItemForm } from '../ItemForm/ItemForm'
 //Styles
 import styles from './ItemBuilder.module.css'
 import { IconPlus } from '@tabler/icons-react'
-import { Item, ItemPrice } from '@/types/RestaurantMenu'
+import { Item } from '@/types/RestaurantMenu'
 
 export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
   const [opened, { close, open }] = useDisclosure(false)
@@ -22,9 +22,12 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
       id: '',
       name: '',
       image: null,
-      price: 0,
+      image_url: '',
+
+      stop_list: false,
+      cooking_time: '',
+
       description: '',
-      weight_in_grams: 0,
       category_ref,
       prices: [],
     },
@@ -38,7 +41,6 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
         if (value[1] instanceof Array) {
           value[1].map((el, index) => {
             for (let item of Object.entries(el)) {
-              console.log(value[0], index, item[0], item[1])
               formData.append(`${value[0]}[${index}]${item[0]}`, item[1])
             }
           })
@@ -56,8 +58,8 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
       <Button onClick={open} className={styles.card}>
         <Center>
           <Stack align="center">
-            <IconPlus color="white" stroke={1.5} size={35} />
-            <Text c="white" fz={18}>
+            <IconPlus stroke={1} size={50} color="#000000" />
+            <Text fz={20} fw={500} c="dark">
               Новая позиция
             </Text>
           </Stack>
@@ -67,7 +69,7 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
         opened={opened}
         onClose={close}
         title={
-          <Text fw={700} fz="xl">
+          <Text fw={700} fz={20}>
             Новая позиция
           </Text>
         }
@@ -76,13 +78,8 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
         <ItemForm
           form={form}
           formSubmit={() => {
-            console.log('form', form.values)
-
             const formData = new FormData()
             const datas = handleItemToFormData(form.values, formData)
-            for (let pair of formData.entries()) {
-              console.log(pair[0] + ': ' + pair[1])
-            }
 
             mutation.mutate({
               key: 'menu_item/',

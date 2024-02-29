@@ -1,7 +1,8 @@
 export interface Restaurant {
-  id?: string
+  id: string
   name: string
-  image: File | string | null
+  image_url: string | null
+  image: File | null
   address: string | null
   is_visible: boolean | null
   working_hours: string | null

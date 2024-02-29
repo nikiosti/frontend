@@ -5,10 +5,12 @@ import { PropsWithChildren, useState } from 'react'
 
 import {
   Button,
+  Group,
   MantineProvider,
   Modal,
   NumberInput,
   PasswordInput,
+  Text,
   TextInput,
   Textarea,
   createTheme,
@@ -72,7 +74,7 @@ const ReactQueryMantineProvider: React.FC<PropsWithChildren> = ({ children }) =>
         },
       }),
 
-      Button: Button.extend({ defaultProps: { color: 'green', radius: 12, fw: 400, size: 'xl' } }),
+      Button: Button.extend({ defaultProps: { color: 'violet.6', radius: 12, fw: 400, size: 'xl' } }),
 
       Modal: Modal.extend({
         defaultProps: {
@@ -88,6 +90,12 @@ const ReactQueryMantineProvider: React.FC<PropsWithChildren> = ({ children }) =>
               backgroundColor: '#F0F0F4',
             },
           },
+        },
+      }),
+
+      Group: Group.extend({
+        defaultProps: {
+          gap: '0.3rem',
         },
       }),
     },

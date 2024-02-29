@@ -16,7 +16,7 @@ export const MenuCategoriesSticky = ({ restaurantMenu }: { restaurantMenu: Resta
   }
 
   return (
-    <Box pb={10} bg="#F0F0F4" hiddenFrom="lg" className={styles.container}>
+    <Box p="xs" bg="#FFF" hiddenFrom="lg">
       <ScrollArea
         offsetScrollbars="x"
         scrollbarSize={2}
@@ -26,11 +26,13 @@ export const MenuCategoriesSticky = ({ restaurantMenu }: { restaurantMenu: Resta
       >
         {restaurantMenu?.categories.map((category, index) => (
           <Button
+            radius="xl"
+            variant="filled"
             size="md"
             className={styles.button}
             key={index}
-            variant="white"
-            color="dark"
+            color="#F4F4F4"
+            autoContrast
             onClick={() => {
               if (category.id) scroll(category.id)
             }}

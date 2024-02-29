@@ -2,12 +2,12 @@
 
 import { Categories } from '@/components/Category/Categories/Categories'
 import { CategoryBuilder } from '@/components/Category/CategoryBuilder/CategoryBuilder'
-import { Restaurants } from '@/components/Restaurants/Restaurants/Restaurants'
+import { RestaurantAction } from '@/components/Restaurants/RestaurantAction/RestaurantAction'
 import { RestaurateurProfile } from '@/components/Restaurateur/RestaurateurProfile/RestaurateurProfile'
 import { Viewing } from '@/components/Viewing/Viewing'
 import { useGetData } from '@/hook/useGetData'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
-import { Burger, Group, AppShell, Box, Image, Avatar, Text, Stack, ScrollArea } from '@mantine/core'
+import { Burger, Group, AppShell, Box, RemoveScroll, Text, Stack, ScrollArea, rem } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { UseQueryResult } from '@tanstack/react-query'
 
@@ -18,49 +18,51 @@ const RestaurantMenuLayout = ({ children, params }: { children: React.ReactNode;
 
   return (
     <AppShell
-      withBorder={false}
-      header={{ height: 80 }}
+      layout="alt"
       navbar={{
-        width: 300,
+        width: 340,
         breakpoint: 'sm',
         collapsed: { mobile: !opened },
       }}
       padding="xs"
+      withBorder={false}
     >
-      <AppShell.Header bg="#F0F0F4">
-        <Group h="100%" px="md">
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          <Box visibleFrom="sm">
-            <Restaurants />
-          </Box>
-          <RestaurateurProfile />
-          <Viewing restaurantId={params.id} />
-        </Group>
-      </AppShell.Header>
-
-      <AppShell.Navbar p="md" bg="#F0F0F4">
-        <Box hiddenFrom="sm" mb="lg">
-          <Restaurants />
-        </Box>
+      <AppShell.Navbar py="md" px="xs">
+        <AppShell.Section>
+          <Group wrap="nowrap" justify="space-between">
+            <RestaurantAction />
+            <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          </Group>
+        </AppShell.Section>
 
         <AppShell.Section>
-          <Text fz={18} fw={500}>
+          <Text fz="md" c="dimmed" mt="xs">
             Категории
-          </Text>
-          <Text fz={14} c="gray">
-            Всего {data?.categories.length}
           </Text>
         </AppShell.Section>
 
-        <AppShell.Section grow my="md" component={ScrollArea}>
+        <AppShell.Section grow component={ScrollArea}>
           <Categories menu={data} />
         </AppShell.Section>
 
         <AppShell.Section>
           <CategoryBuilder restaurantId={params.id} />
         </AppShell.Section>
+
+        <AppShell.Section>
+          <RestaurateurProfile />
+        </AppShell.Section>
       </AppShell.Navbar>
-      <AppShell.Main bg="#F0F0F4">{children}</AppShell.Main>
+      <AppShell.Main bg="#F4F4F4" >
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          hiddenFrom="sm"
+          size="sm"
+          style={{ position: 'absolute', zIndex: 2, right: 10, top: 20 }}
+        />
+        {children}
+      </AppShell.Main>
     </AppShell>
   )
 }

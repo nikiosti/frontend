@@ -4,10 +4,10 @@ import '@mantine/dropzone/styles.css'
 import { ReactQueryMantineProvider } from '@/provider/ReactQueryMantineProvider'
 
 import type { Metadata } from 'next'
-import { Golos_Text } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
 
-const inter = Golos_Text({ subsets: ['latin'], weight: '400' })
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Едадед',

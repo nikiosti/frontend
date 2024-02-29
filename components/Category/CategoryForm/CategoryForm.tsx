@@ -21,7 +21,7 @@ export const CategoryForm = ({
         placeholder="Напитки"
         label="Название категории"
       />
-      <Group mt="xs" grow>
+      <Group mt="xs" wrap="wrap">
         {children}
       </Group>
     </form>

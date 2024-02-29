@@ -4,11 +4,13 @@ import { useDeleteData } from '@/hook/useDeleteData'
 import { usePatchData } from '@/hook/usePatchData'
 import { CategoryItem } from '@/types/Category'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
-import { Box, Button, Modal, Paper, Text, UnstyledButton } from '@mantine/core'
+import { Box, Button, Container, Modal, Paper, Text, UnstyledButton } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { CategoryForm } from '@/components/Category/CategoryForm/CategoryForm'
 import { IconDeviceFloppy, IconTrash } from '@tabler/icons-react'
+
+import styles from './Categories.module.css'
 
 const CategoryCard = ({
   category,
@@ -18,9 +20,9 @@ const CategoryCard = ({
   onOpenCategoryModal: (form: CategoryItem) => void
 }) => {
   return (
-    <Paper p="xs" my="xs" radius={12}>
+    <Paper p="xs" my="xs" radius={12} className={styles.card}>
       <UnstyledButton my={0} onClick={() => onOpenCategoryModal(category)} w="100%">
-        <Text fw={500} fz="xl">
+        <Text fw={500} fz="16">
           {category.name}
         </Text>
       </UnstyledButton>
@@ -39,8 +41,6 @@ export const Categories = ({ menu }: { menu: RestaurantMenu | undefined }) => {
     },
   })
 
-  // useEffect(() => form.setFieldValue('restaurant_ref', menu?.id || ''), [menu])
-
   const onOpenCategoryModal = (category: CategoryItem) => {
     form.setValues(category)
     openCategory()
@@ -48,9 +48,10 @@ export const Categories = ({ menu }: { menu: RestaurantMenu | undefined }) => {
 
   const { mutate: patchCategory } = usePatchData(['restaurant_menu'])
   const { mutate: deleteCategory } = useDeleteData(['restaurant_menu'])
+
   return (
     <>
-      {menu?.categories.map((category) => (
+      {menu?.categories?.map((category) => (
         <CategoryCard category={category} onOpenCategoryModal={onOpenCategoryModal} key={category.id} />
       ))}
 
@@ -70,29 +71,20 @@ export const Categories = ({ menu }: { menu: RestaurantMenu | undefined }) => {
             closeCategory()
           }}
         >
-          <Button
-            color="red"
-            onClick={() => {
-              deleteCategory(`category/${form.values.id}/`)
-              closeCategory()
-            }}
-            variant="light"
-          >
-            <Box hiddenFrom="xs">
-              <IconTrash stroke={1.5} />
-            </Box>
-            <Text visibleFrom="xs" fz={20}>
-              Удалить
-            </Text>
+          <Button type="submit" radius="xl" fullWidth>
+            Сохранить
           </Button>
-          <Button type="submit">
-            <Box hiddenFrom="xs">
-              <IconDeviceFloppy stroke={1.5} />
-            </Box>
-            <Text visibleFrom="xs" fz={20}>
-              Сохранить
-            </Text>
-          </Button>
+          <Container>
+            <UnstyledButton
+              mt="xs"
+              onClick={() => {
+                deleteCategory(`category/${form.values.id}/`)
+                closeCategory()
+              }}
+            >
+              <Text c="dimmed">Удалить</Text>
+            </UnstyledButton>
+          </Container>
         </CategoryForm>
       </Modal>
     </>

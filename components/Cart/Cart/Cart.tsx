@@ -24,15 +24,7 @@ export const Cart = () => {
           <Group justify="space-between">
             <Group wrap="nowrap">
               <Indicator size={20} label={item.quantity} color="dark">
-                <Avatar
-                  radius={8}
-                  src={
-                    !item.item.image?.includes('noimage_edaded_placeholder')
-                      ? 'http://localhost:8000' + item.item.image
-                      : item.item.image
-                  }
-                  size={55}
-                />
+                <Avatar radius={8} src={item.item.image_url} size={55} />
               </Indicator>
               <div>
                 <Text fw={500} lineClamp={1} maw={100}>

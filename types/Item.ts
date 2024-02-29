@@ -3,9 +3,7 @@ interface MenuItem {
   category_ref: string
   name: string
   description: string | null
-  price: number | null
-  weight_in_grams: number | null
-  image: any
+  image: null | File
 }
 
 interface MenuItemPrice {
@@ -22,5 +20,5 @@ interface FormMenuItem {
   description: string | null
   price: number | null
   weight_in_grams: number | null
-  image: any
+  image: null | File
 }

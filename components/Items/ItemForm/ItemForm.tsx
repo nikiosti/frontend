@@ -1,7 +1,7 @@
 'use client'
 
 //Mantine
-import { ActionIcon, Box, Button, Group, Image, NumberInput, Text, TextInput, Textarea } from '@mantine/core'
+import { ActionIcon, Box, Button, Group, Image, NumberInput, Stack, Text, TextInput, Textarea } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 
@@ -45,9 +45,12 @@ export const ItemForm = ({
       />
 
       <ActionIcon
+        flex={1}
         variant="white"
         color="white"
         radius={12}
+        miw={60}
+        mih={60}
         w={60}
         h={60}
         onClick={() => form.removeListItem('prices', index)}
@@ -60,7 +63,13 @@ export const ItemForm = ({
   return (
     <>
       <form onSubmit={form.onSubmit(formSubmit)}>
-        <TextInput {...form.getInputProps('name')} data-autofocus required label="Название позиции" />
+        <TextInput
+          {...form.getInputProps('name')}
+          data-autofocus
+          required
+          label="Название позиции"
+          placeholder="Хинкали классические"
+        />
 
         <Dropzone onDrop={handleDrop} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} mt="xs" radius={12}>
           {form.values.image ? (
@@ -73,29 +82,20 @@ export const ItemForm = ({
                 alt="Новое заведение"
               />
             ) : (
-              <Image
-                radius={8}
-                mah={250}
-                maw={250}
-                src={
-                  !form.values.image?.includes('noimage_edaded_placeholder')
-                    ? `http://localhost:8000${form.values.image}`
-                    : `${form.values.image}`
-                }
-                alt="Новое заведение"
-              />
+              <Image radius={8} mah={250} maw={250} src={form.values.image_url} alt="Новое заведение" />
             )
           ) : (
             <Group>
               <IconPhoto stroke={1.5} />
               <Text fz="xl" ta="center">
-                Выберите картинку или перетащите их сюда
+                Выберите картинку или перетащите ее сюда
               </Text>
             </Group>
           )}
         </Dropzone>
 
         {ItemsPrices}
+
         <Button
           mt="lg"
           fullWidth
@@ -117,6 +117,8 @@ export const ItemForm = ({
           Добавить вариацию
         </Button>
 
+        <TextInput {...form.getInputProps('cooking_time')} label="Время готовки" mt="xs" placeholder="12 минут" />
+
         <Textarea
           {...form.getInputProps('description')}
           label="Описание"
@@ -124,7 +126,7 @@ export const ItemForm = ({
           mt="xs"
         />
 
-        <Group mt="xs" grow>
+        <Group wrap="wrap" mt="xs">
           {children}
         </Group>
       </form>

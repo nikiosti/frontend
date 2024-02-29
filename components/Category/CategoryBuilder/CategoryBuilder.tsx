@@ -6,7 +6,6 @@ import { Button, Center, Container, Modal, Text } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { CategoryItem } from '@/types/Category'
 import { useDisclosure } from '@mantine/hooks'
-import { IconCategoryPlus } from '@tabler/icons-react'
 export const CategoryBuilder = ({ restaurantId }: { restaurantId: string }) => {
   const [openedCategory, { close: closeCategory, open: openCategory }] = useDisclosure(false)
 
@@ -21,7 +20,7 @@ export const CategoryBuilder = ({ restaurantId }: { restaurantId: string }) => {
 
   return (
     <>
-      <Button onClick={openCategory} rightSection={<IconCategoryPlus stroke={1.5} />} fullWidth>
+      <Button onClick={openCategory} bg="violet.4" fullWidth size="md" radius="xl">
         Новая категория
       </Button>
 
@@ -46,7 +45,9 @@ export const CategoryBuilder = ({ restaurantId }: { restaurantId: string }) => {
             form.reset()
           }}
         >
-          <Button type="submit">Сохранить</Button>
+          <Button type="submit" radius="xl" fullWidth >
+            Сохранить
+          </Button>
         </CategoryForm>
       </Modal>
     </>

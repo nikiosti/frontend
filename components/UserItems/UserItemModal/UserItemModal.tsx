@@ -55,22 +55,16 @@ const MenuItemPrices = ({ price, item }: { price: ItemPrice; item: ItemType }) =
   )
 }
 
-export const UserItemModal = ({ item }: { item: ItemType }) => {
+export const UserItemModal = ({ item }: { item: ItemType | undefined }) => {
   return (
     <Card padding="xs" radius={12} bg="#F0F0F4">
-      <>
-        <Image
-          src={
-            !item.image?.includes('noimage_edaded_placeholder') ? `http://localhost:8000${item.image}` : `${item.image}`
-          }
-          mah={300}
-          radius={12}
-        />
-      </>
+      <Image src={item?.image_url} mah={300} radius={12} />
+
       <Text fw={700} size="xl" mt="xs">
-        {item.name}
+        {item?.name}
       </Text>
-      <Text mt="md">{item.description}</Text>
+      <Text mt="md">{item?.description}</Text>
+
       {item?.prices.map((price) => (
         <MenuItemPrices key={price.id} price={price} item={item} />
       ))}

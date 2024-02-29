@@ -2,7 +2,19 @@
 
 //Components
 import { Item } from '../Item/Item'
-import { Box, Button, Grid, Group, Modal, ScrollArea, SimpleGrid, Text } from '@mantine/core'
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  Grid,
+  Group,
+  Modal,
+  ScrollArea,
+  SimpleGrid,
+  Text,
+  UnstyledButton,
+} from '@mantine/core'
 import { ItemBuilder } from '../ItemBulider/ItemBuilder'
 import { Item as ItemType, RestaurantMenu } from '@/types/RestaurantMenu'
 
@@ -12,7 +24,6 @@ import { useDeleteData } from '@/hook/useDeleteData'
 import { useDisclosure } from '@mantine/hooks'
 import { useForm } from '@mantine/form'
 //Types
-import { ItemFormValue } from '@/types/Item'
 import { ItemForm } from '../ItemForm/ItemForm'
 import { IconDeviceFloppy, IconTrash } from '@tabler/icons-react'
 
@@ -25,16 +36,19 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
       prices: [],
       id: '',
       name: '',
-      image: '',
-      price: 0,
+      image: null,
+      image_url: '',
       description: '',
-      weight_in_grams: 0,
+
+      stop_list: false,
+      cooking_time: '',
+
       category_ref: '',
     },
   })
   const { mutate: patchItem } = usePatchData(['restaurant_menu'])
 
-  const onOpenAndSetForm = (datas: ItemFormValue) => {
+  const onOpenAndSetForm = (datas: ItemType) => {
     for (const [fieldName, value] of Object.entries(datas)) {
       form.setFieldValue(fieldName, value !== null ? value : undefined)
     }
@@ -65,7 +79,7 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
     <div>
       {data?.categories.map((category) => (
         <div key={category.id}>
-          <Text fz={22} fw={500} my="md" ml="xs">
+          <Text fz={30} fw={500} my="md">
             {category.name}
           </Text>
 
@@ -74,11 +88,10 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
               base: 1,
               xs: 2,
               sm: 2,
-              md: 2,
-              lg: 3,
-              xl: 4,
+              md: 3,
+              lg: 4,
+              xl: 5,
             }}
-            mx="xs"
           >
             <ItemBuilder category_ref={category.id} />
 
@@ -98,16 +111,14 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
             Правки позиции
           </Text>
         }
-        size="xl"
+        size="lg"
       >
         <ItemForm
           form={form}
           formSubmit={() => {
             const formData = new FormData()
             const datas = handleItemToFormData(form.values, formData)
-            for (let pair of formData.entries()) {
-              console.log(pair[0] + ': ' + pair[1])
-            }
+
             patchItem({
               key: `menu_item/${form.values.id}/`,
               datas: datas,
@@ -116,30 +127,20 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
             close()
           }}
         >
-          <Button
-            size="xl"
-            color="red"
-            variant="light"
-            onClick={() => {
-              deleteItem(`menu_item/${form.values.id}/`)
-              close()
-            }}
-          >
-            <Box hiddenFrom="xs">
-              <IconTrash stroke={1.5} />
-            </Box>
-            <Text visibleFrom="xs" fz={20}>
-              Удалить
-            </Text>
+          <Button type="submit" fullWidth radius="xl">
+            Сохранить
           </Button>
-          <Button type="submit" size="xl">
-            <Box hiddenFrom="xs">
-              <IconDeviceFloppy stroke={1.5} />
-            </Box>
-            <Text visibleFrom="xs" fz={20}>
-              Сохранить
-            </Text>
-          </Button>
+          <Container>
+            <UnstyledButton
+              mt="xs"
+              onClick={() => {
+                deleteItem(`menu_item/${form.values.id}/`)
+                close()
+              }}
+            >
+              <Text c="dimmed">Удалить</Text>
+            </UnstyledButton>
+          </Container>
         </ItemForm>
       </Modal>
     </div>

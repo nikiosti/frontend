@@ -1,8 +1,8 @@
 .card {
   position: relative;
-  height: rem(400px);
+  height: rem(300px);
 
-  background-color: var(--mantine-color-green-6);
+  background-color: var(--mantine-color-white);
   border-radius: 12px;
 
   @media (max-width: $mantine-breakpoint-sm) {

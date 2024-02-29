@@ -8,9 +8,13 @@ export type ItemPrice = {
 export type Item = {
   id: string
   name: string
-  image: string | File | null
-  price: number | null
-  weight_in_grams: number | null
+
+  image: File | null
+  image_url: string
+
+  stop_list: boolean
+  cooking_time?: string
+
   description: string | null
   category_ref: string
   prices: ItemPrice[]

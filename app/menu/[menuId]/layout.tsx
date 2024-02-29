@@ -7,21 +7,17 @@ import {
   ActionIcon,
   AppShell,
   Box,
-  Burger,
-  Container,
   Group,
-  Image,
   Indicator,
   Modal,
   RemoveScroll,
   ScrollArea,
   SimpleGrid,
-  Stack,
   Text,
-  TextInput,
+  rem,
 } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
-import { UseQueryResult } from '@tanstack/react-query'
+import { useDisclosure, useHeadroom, useMediaQuery } from '@mantine/hooks'
+import { UseQueryResult, useQueries } from '@tanstack/react-query'
 
 import { useState } from 'react'
 import { UserItemModal } from '@/components/UserItems/UserItemModal/UserItemModal'
@@ -34,13 +30,12 @@ import { MenuCategories } from '@/components/MenuCategories/MenuCategories/MenuC
 import { Cart } from '@/components/Cart/Cart/Cart'
 import { useShallow } from 'zustand/react/shallow'
 
-import styles from './layout.module.css'
 import { MenuRestautant } from '@/components/MenuRestaurant/MenuRestaurant'
 import { CartTitle } from '@/components/Cart/CartTitle/CartTitle'
 import { CartTotal } from '@/components/Cart/CartTotal/CartTotal'
 
 import { MenuCategoriesSticky } from '@/components/MenuCategories/MenuCategoriesSticky/MenuCategoriesSticky'
-import { IconBasket, IconSearch } from '@tabler/icons-react'
+import { IconBasket, IconX } from '@tabler/icons-react'
 
 const MenuLayout = ({ children, params }: { children: React.ReactNode; params: { menuId: string } }) => {
   const { data }: UseQueryResult<RestaurantMenu> = useGetData(
@@ -53,41 +48,59 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
   const [item, setItem] = useState<ItemType>()
   const [clearItems, items] = useMenuStore(useShallow((state) => [state.clearItems, state.items]))
 
+  const pinned = useHeadroom({ fixedAt: 160 })
+  const matches = useMediaQuery('(min-width: 74em)')
+
   return (
     <AppShell
-      bg="#F0F0F4"
+      bg="#F4F4F4"
+      padding={5}
       withBorder={false}
-      header={{ height: 80 }}
-      padding="xs"
-      navbar={{ width: 300, breakpoint: 'lg', collapsed: { mobile: !opened } }}
+      header={{ height: 80, collapsed: !pinned, offset: false }}
+      navbar={{ width: 340, breakpoint: 'lg', collapsed: { mobile: !opened } }}
       aside={{ width: 400, breakpoint: 'lg', collapsed: { desktop: false, mobile: true } }}
     >
-      <AppShell.Header bg="#F0F0F4" className={styles.header} p="xs">
-        <Group h="100%" wrap="nowrap" preventGrowOverflow={false} w="100%" justify="space-between" pr="xs">
-          <Group wrap="nowrap" preventGrowOverflow={false}>
-            {/* <Image src="/logotype.svg" w={55} /> */}
+      {!matches && (
+        <AppShell.Header bg="#FFFFFF">
+          <Group h="100%" wrap="nowrap" preventGrowOverflow={false} w="100%" justify="space-between" p="xs">
             <div>
               <h2>Едадед</h2>
               <Text c="dimmed" size="sm">
                 Электронное меню
               </Text>
             </div>
-          </Group>
-          {items.length ? (
-            <Indicator color="dark" radius="xl" label={items.length} size={20} hiddenFrom="lg">
-              <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30}>
-                <IconBasket stroke={1.5} size={30} />
-              </ActionIcon>
-            </Indicator>
-          ) : (
-            <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30} hiddenFrom="lg">
-              <IconBasket stroke={1.5} size={30} />
-            </ActionIcon>
-          )}
-        </Group>
-      </AppShell.Header>
 
-      <AppShell.Navbar p="sm" bg="#F0F0F4">
+            {items.length ? (
+              <Indicator color="dark" radius="xl" label={items.length} size={20} hiddenFrom="lg">
+                <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30}>
+                  <IconBasket stroke={1} size={30} />
+                </ActionIcon>
+              </Indicator>
+            ) : (
+              <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30} hiddenFrom="lg">
+                <IconBasket stroke={1} size={30} />
+              </ActionIcon>
+            )}
+          </Group>
+          <MenuCategoriesSticky restaurantMenu={data} />
+        </AppShell.Header>
+      )}
+
+      <AppShell.Navbar p="sm" bg="#F4F4F4">
+        <AppShell.Section pb="xl" pt="sm" hiddenFrom="lg">
+          <ActionIcon
+            onClick={toggle}
+            variant="transparent"
+            color="dark"
+            size={30}
+            hiddenFrom="lg"
+            pos="absolute"
+            right={10}
+          >
+            <IconX stroke={1} size={30} />
+          </ActionIcon>
+        </AppShell.Section>
+
         <AppShell.Section visibleFrom="lg">
           <Text fw={700} size="xl">
             Меню
@@ -108,25 +121,26 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
           <CartTotal items={items} />
         </AppShell.Section>
       </AppShell.Navbar>
-      <AppShell.Main>
+
+      <AppShell.Main pt={!matches ? `calc(${rem(80)} + var(--mantine-spacing-md))` : 'xs'}>
         <MenuRestautant restaurant={data} />
-        <MenuCategoriesSticky restaurantMenu={data} />
 
         {children}
         <Box>
           {data?.categories.map((category) => (
             <div key={category.id}>
-              <Text fz={22} fw={700} my="md" id={category.id}>
+              <Text fz="xl" fw={700} my="md" id={category.id}>
                 {category.name}
               </Text>
 
               <SimpleGrid
+                spacing="5"
                 w="100%"
                 cols={{
-                  base: 1,
+                  base: 2,
                   xs: 2,
                   sm: 3,
-                  md: 3,
+                  md: 4,
                   lg: 2,
                   xl: 3,
                 }}
@@ -150,7 +164,7 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
         </Modal>
       </AppShell.Main>
 
-      <AppShell.Aside bg="#F0F0F4" p="xs" className={RemoveScroll.classNames.zeroRight}>
+      <AppShell.Aside bg="#F4F4F4" p="xs" className={RemoveScroll.classNames.zeroRight}>
         <AppShell.Section>
           <CartTitle clearItems={clearItems} />
         </AppShell.Section>
