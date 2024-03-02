@@ -3,7 +3,7 @@ import axiosClient from '@/service/axiosInstance'
 
 interface Params {
   key: string
-  datas: any
+  datas: FormData
 }
 
 const patchData = async (params: Params) => {

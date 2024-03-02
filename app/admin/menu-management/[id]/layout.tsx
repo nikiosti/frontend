@@ -1,10 +1,10 @@
 'use client'
 
+import { RestaurantManager } from '@/components/Admin/Restaurant/RestaurantManager/RestaurantManager'
 import { Categories } from '@/components/Category/Categories/Categories'
 import { CategoryBuilder } from '@/components/Category/CategoryBuilder/CategoryBuilder'
-import { RestaurantAction } from '@/components/Restaurants/RestaurantAction/RestaurantAction'
 import { RestaurateurProfile } from '@/components/Restaurateur/RestaurateurProfile/RestaurateurProfile'
-import { Viewing } from '@/components/Viewing/Viewing'
+
 import { useGetData } from '@/hook/useGetData'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
 import { Burger, Group, AppShell, Box, RemoveScroll, Text, Stack, ScrollArea, rem } from '@mantine/core'
@@ -30,7 +30,9 @@ const RestaurantMenuLayout = ({ children, params }: { children: React.ReactNode;
       <AppShell.Navbar py="md" px="xs">
         <AppShell.Section>
           <Group wrap="nowrap" justify="space-between">
-            <RestaurantAction />
+            {/* <RestaurantAction /> */}
+
+            <RestaurantManager />
             <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           </Group>
         </AppShell.Section>
@@ -53,7 +55,7 @@ const RestaurantMenuLayout = ({ children, params }: { children: React.ReactNode;
           <RestaurateurProfile />
         </AppShell.Section>
       </AppShell.Navbar>
-      <AppShell.Main bg="#F4F4F4" >
+      <AppShell.Main bg="#F4F4F4">
         <Burger
           opened={opened}
           onClick={toggle}

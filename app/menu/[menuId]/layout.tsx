@@ -48,48 +48,38 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
   const [item, setItem] = useState<ItemType>()
   const [clearItems, items] = useMenuStore(useShallow((state) => [state.clearItems, state.items]))
 
-  const pinned = useHeadroom({
-    fixedAt: 160,
-    onFix() {
-      return false
-    },
-  })
-  const matches = useMediaQuery('(min-width: 74em)')
-
   return (
     <AppShell
       bg="#F4F4F4"
       padding={5}
       withBorder={false}
-      header={{ height: 80, collapsed: !pinned, offset: false }}
+      header={{ height: 80 }}
       navbar={{ width: 340, breakpoint: 'lg', collapsed: { mobile: !opened } }}
       aside={{ width: 400, breakpoint: 'lg', collapsed: { desktop: false, mobile: true } }}
     >
-      {!matches && (
-        <AppShell.Header bg="#FFFFFF">
-          <Group h="100%" wrap="nowrap" preventGrowOverflow={false} w="100%" justify="space-between" p="xs">
-            <div>
-              <h2>Едадед</h2>
-              <Text c="dimmed" size="sm">
-                Электронное меню
-              </Text>
-            </div>
+      <AppShell.Header bg="#FFFFFF">
+        <Group h="100%" wrap="nowrap" preventGrowOverflow={false} w="100%" justify="space-between" p="xs">
+          <div>
+            <h2>Едадед</h2>
+            <Text c="dimmed" size="sm">
+              Электронное меню
+            </Text>
+          </div>
 
-            {items.length ? (
-              <Indicator color="dark" radius="xl" label={items.length} size={20} hiddenFrom="lg">
-                <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30}>
-                  <IconBasket stroke={1} size={30} />
-                </ActionIcon>
-              </Indicator>
-            ) : (
-              <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30} hiddenFrom="lg">
+          {items.length ? (
+            <Indicator color="dark" radius="xl" label={items.length} size={20} hiddenFrom="lg">
+              <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30}>
                 <IconBasket stroke={1} size={30} />
               </ActionIcon>
-            )}
-          </Group>
-          <MenuCategoriesSticky restaurantMenu={data} />
-        </AppShell.Header>
-      )}
+            </Indicator>
+          ) : (
+            <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30} hiddenFrom="lg">
+              <IconBasket stroke={1} size={30} />
+            </ActionIcon>
+          )}
+        </Group>
+        <MenuCategoriesSticky restaurantMenu={data} />
+      </AppShell.Header>
 
       <AppShell.Navbar p="sm" bg="#F4F4F4">
         <AppShell.Section pb="xl" pt="sm" hiddenFrom="lg">
@@ -127,7 +117,7 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
         </AppShell.Section>
       </AppShell.Navbar>
 
-      <AppShell.Main pt={!matches ? `calc(${rem(80)} + var(--mantine-spacing-md))` : 'xs'}>
+      <AppShell.Main>
         <MenuRestautant restaurant={data} />
 
         {children}

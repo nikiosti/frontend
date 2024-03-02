@@ -1,0 +1,6 @@
+.dropzone {
+  /* height: rem(70px); */
+  border-radius: rem(12px);
+  margin-top: var(--mantine-spacing-xs);
+  /* padding: var(--mantine-spacing-xs); */
+}
