@@ -12,7 +12,7 @@ import { useDeleteData } from '@/hook/useDeleteData'
 import { useDisclosure } from '@mantine/hooks'
 import { useForm } from '@mantine/form'
 //Types
-import { ItemForm } from '../ItemForm/ItemForm'
+import { ItemForm } from '../../Admin/Forms/ItemForm/ItemForm'
 
 export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
   const { mutate: deleteItem } = useDeleteData(['restaurant_menu'])
@@ -112,7 +112,7 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
               mt="xs"
               onClick={() => {
                 deleteItem(`menu_item/${form.values.id}/`)
-                close() 
+                close()
               }}
             >
               <Text c="dimmed">Удалить</Text>

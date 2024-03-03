@@ -1,26 +1,11 @@
 'use client'
 
-//Mantine
-import {
-  ActionIcon,
-  Box,
-  Button,
-  Checkbox,
-  Group,
-  Image,
-  NumberInput,
-  Stack,
-  Text,
-  TextInput,
-  Textarea,
-} from '@mantine/core'
+import { ActionIcon, Button, Group, Image, NumberInput, Text, TextInput, Textarea } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 
-//Types
+import { Item } from '@/types/RestaurantMenu'
 import { IconCircleMinus, IconPhoto } from '@tabler/icons-react'
-import { Item, ItemPrice } from '@/types/RestaurantMenu'
-import { usePostData } from '@/hook/usePostData'
 
 export const ItemForm = ({
   form,

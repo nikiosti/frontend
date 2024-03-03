@@ -7,7 +7,7 @@ import { usePostData } from '@/hook/usePostData'
 
 //Components
 import { Button, Center, Checkbox, Group, Modal, Stack, Text } from '@mantine/core'
-import { ItemForm } from '../ItemForm/ItemForm'
+import { ItemForm } from '../../Admin/Forms/ItemForm/ItemForm'
 
 //Styles
 import styles from './ItemBuilder.module.css'

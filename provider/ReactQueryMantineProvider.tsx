@@ -79,7 +79,7 @@ const ReactQueryMantineProvider: React.FC<PropsWithChildren> = ({ children }) =>
       }),
 
       Button: Button.extend({
-        defaultProps: { color: 'violet.6', radius: 12, fw: 400, size: 'lg' },
+        defaultProps: { color: 'violet.6', radius: 'xl', fw: 400, size: 'lg' },
       }),
 
       Modal: Modal.extend({

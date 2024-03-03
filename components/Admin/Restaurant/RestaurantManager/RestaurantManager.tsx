@@ -116,7 +116,7 @@ export const RestaurantManager = () => {
         size="lg"
       >
         <RestaurantForm form={form} formSubmit={handlePatchRestaurant} handleDrop={handleDrop}>
-          <Button radius="xl" fullWidth onClick={handlePatchRestaurant}>
+          <Button fullWidth onClick={handlePatchRestaurant}>
             Сохранить
           </Button>
 
@@ -124,7 +124,6 @@ export const RestaurantManager = () => {
             <Popover withArrow withRoles>
               <Popover.Target>
                 <Button
-                  radius="xl"
                   variant="subtle"
                   color="red"
                   // onClick={handleDeleteRestaurant}
@@ -136,7 +135,7 @@ export const RestaurantManager = () => {
               <Popover.Dropdown>
                 <Text fw={500}>Удалить {restaurant?.name}?</Text>
 
-                <Button size="sm" radius="xl" mt="xs" onClick={handleDeleteRestaurant}>
+                <Button size="sm" mt="xs" onClick={handleDeleteRestaurant}>
                   Да
                 </Button>
               </Popover.Dropdown>
