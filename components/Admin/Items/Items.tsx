@@ -1,9 +1,9 @@
 'use client'
 
 //Components
-import { Item } from '../../Admin/Item/Item'
+import { Item } from '../Item/Item'
 import { Button, Checkbox, Container, Modal, ScrollArea, SimpleGrid, Switch, Text, UnstyledButton } from '@mantine/core'
-import { ItemBuilder } from '../../Admin/Builder/ItemBuilder'
+import { ItemBuilder } from '../Builder/ItemBuilder'
 import { Item as ItemType, RestaurantMenu } from '@/types/RestaurantMenu'
 
 //Hooks
@@ -12,7 +12,8 @@ import { useDeleteData } from '@/hook/useDeleteData'
 import { useDisclosure } from '@mantine/hooks'
 import { useForm } from '@mantine/form'
 //Types
-import { ItemForm } from '../../Admin/Forms/ItemForm/ItemForm'
+import { ItemForm } from '../Forms/ItemForm/ItemForm'
+import { IconTrash } from '@tabler/icons-react'
 
 export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
   const { mutate: deleteItem } = useDeleteData(['restaurant_menu'])
@@ -108,15 +109,17 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
             Сохранить
           </Button>
           <Container>
-            <UnstyledButton
-              mt="xs"
+            <Button
+              rightSection={<IconTrash stroke={1.5} />}
+              color="red"
+              variant="subtle"
               onClick={() => {
                 deleteItem(`menu_item/${form.values.id}/`)
                 close()
               }}
             >
-              <Text c="dimmed">Удалить</Text>
-            </UnstyledButton>
+              Удалить
+            </Button>
           </Container>
         </ItemForm>
       </Modal>

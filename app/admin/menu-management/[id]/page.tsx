@@ -3,7 +3,7 @@
 //Hooks
 import { useGetData } from '@/hook/useGetData'
 //Components
-import { Items } from '@/components/Items/Items/Items'
+import { Items } from '@/components/Admin/Items/Items'
 //Types
 import { UseQueryResult } from '@tanstack/react-query'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
