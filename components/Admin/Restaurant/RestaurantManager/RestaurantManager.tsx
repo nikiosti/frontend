@@ -126,7 +126,7 @@ export const RestaurantManager = () => {
                 <Button
                   variant="subtle"
                   color="red"
-                  // onClick={handleDeleteRestaurant}
+                
                   rightSection={<IconTrash stroke={1.5} />}
                 >
                   Удалить

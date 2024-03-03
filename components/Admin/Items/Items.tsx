@@ -1,9 +1,9 @@
 'use client'
 
 //Components
-import { Item } from '../Item/Item'
-import { Button, Checkbox, Container, Modal, ScrollArea, SimpleGrid, Switch, Text, UnstyledButton } from '@mantine/core'
-import { ItemBuilder } from '../Builder/ItemBuilder'
+import { Item } from '@/components/General/Item/Item'
+import { Button, Container, Modal, ScrollArea, SimpleGrid, Switch, Text } from '@mantine/core'
+import { ItemBuilder } from '../Builder/ItemBuilder/ItemBuilder'
 import { Item as ItemType, RestaurantMenu } from '@/types/RestaurantMenu'
 
 //Hooks
@@ -11,7 +11,7 @@ import { usePatchData } from '@/hook/usePatchData'
 import { useDeleteData } from '@/hook/useDeleteData'
 import { useDisclosure } from '@mantine/hooks'
 import { useForm } from '@mantine/form'
-//Types
+
 import { ItemForm } from '../Forms/ItemForm/ItemForm'
 import { IconTrash } from '@tabler/icons-react'
 
@@ -101,7 +101,9 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
         scrollAreaComponent={ScrollArea.Autosize}
         opened={opened}
         onClose={close}
-        title={<Switch color="dark" {...form.getInputProps('stop_list', { type: 'checkbox' })} label="Стоп лист" />}
+        title={
+          <Switch size="md" color="dark" {...form.getInputProps('stop_list', { type: 'checkbox' })} label="Стоп лист" />
+        }
         size="lg"
       >
         <ItemForm form={form} formSubmit={handlePatchMenuItem}>

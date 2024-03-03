@@ -1,12 +1,12 @@
 'use client'
 
-import { Item } from '@/components/Admin/Item/Item'
-import { useGetData } from '@/hook/useGetData'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
 import {
   ActionIcon,
   AppShell,
   Box,
+  Burger,
+  Center,
   Group,
   Indicator,
   Modal,
@@ -14,30 +14,25 @@ import {
   ScrollArea,
   SimpleGrid,
   Text,
+  UnstyledButton,
   rem,
 } from '@mantine/core'
-import { useDisclosure, useMediaQuery } from '@mantine/hooks'
-import { useHeadroom } from '@/hook/useHeadroom'
-import { UseQueryResult } from '@tanstack/react-query'
+import { useDisclosure } from '@mantine/hooks'
+import { useGetData } from '@/hook/useGetData'
 
 import { useState } from 'react'
-import { UserItemModal } from '@/components/UserItems/UserItemModal/UserItemModal'
+import { UseQueryResult } from '@tanstack/react-query'
 
 import { useMenuStore } from '@/store/Menu/Menu'
+import { useShallow } from 'zustand/react/shallow'
 
 //Types
 import { Item as ItemType } from '@/types/RestaurantMenu'
-import { MenuCategories } from '@/components/MenuCategories/MenuCategories/MenuCategories'
-import { Cart } from '@/components/Cart/Cart/Cart'
-import { useShallow } from 'zustand/react/shallow'
 
-import { MenuRestautant } from '@/components/MenuRestaurant/MenuRestaurant'
-import { CartTitle } from '@/components/Cart/CartTitle/CartTitle'
-import { CartTotal } from '@/components/Cart/CartTotal/CartTotal'
+import { Logotype, Item } from '@/components/General'
 
-import { MenuCategoriesSticky } from '@/components/MenuCategories/MenuCategoriesSticky/MenuCategoriesSticky'
-import { IconBasket, IconX } from '@tabler/icons-react'
-import { Logotype } from '@/components/Logo/Logotype'
+import { IconBasket } from '@tabler/icons-react'
+import { CategoriesSticky, Categories, Cart, CartTitle, CartTotal, Restautant, ItemModal } from '@/components/Menu'
 
 const MenuLayout = ({ children, params }: { children: React.ReactNode; params: { menuId: string } }) => {
   const { data }: UseQueryResult<RestaurantMenu> = useGetData(
@@ -50,47 +45,22 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
   const [item, setItem] = useState<ItemType>()
   const [clearItems, items] = useMenuStore(useShallow((state) => [state.clearItems, state.items]))
 
-  const pinned = useHeadroom({ fixedAt: 180 })
-
-  const media = useMediaQuery('(max-width: 75em)')
-
   return (
     <AppShell
-      bg="#FFF"
+      bg="#e4e4e6"
       padding={5}
       withBorder={false}
-      header={{ height: 80, collapsed: media && !opened && !pinned }}
       navbar={{ width: 340, breakpoint: 'lg', collapsed: { mobile: !opened } }}
       aside={{ width: 400, breakpoint: 'lg', collapsed: { desktop: false, mobile: true } }}
     >
-      <AppShell.Header bg="#FFF">
-        <Group h="100%" wrap="nowrap" justify="space-between" px="md">
-          <Logotype order={2} />
-          <div>
-            {items.length ? (
-              <Indicator color="dark" radius="xl" label={items.length} size={20} hiddenFrom="lg">
-                <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30}>
-                  <IconBasket stroke={1} size={30} />
-                </ActionIcon>
-              </Indicator>
-            ) : (
-              <ActionIcon onClick={toggle} variant="transparent" color="dark" size={30} hiddenFrom="lg">
-                <IconBasket stroke={1} size={30} />
-              </ActionIcon>
-            )}
-          </div>
-        </Group>
-        <MenuCategoriesSticky restaurantMenu={data} />
-      </AppShell.Header>
-
-      <AppShell.Navbar p="sm" bg="#FFF">
+      <AppShell.Navbar p="sm" bg="#FFF" pt={60} zIndex={99}>
         <AppShell.Section visibleFrom="lg">
           <Text fw={700} size="xl">
             Меню
           </Text>
         </AppShell.Section>
         <AppShell.Section grow component={ScrollArea.Autosize} my="md" visibleFrom="lg">
-          <MenuCategories data={data} />
+          <Categories data={data} />
         </AppShell.Section>
 
         <AppShell.Section hiddenFrom="lg">
@@ -105,8 +75,30 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
         </AppShell.Section>
       </AppShell.Navbar>
 
-      <AppShell.Main pt={`calc(${rem(130)} + var(--mantine-spacing-md))`}>
-        <MenuRestautant restaurant={data} />
+      <AppShell.Main>
+        <Box
+          style={{
+            zIndex: 100,
+            position: 'fixed',
+            right: 10,
+            top: 10,
+            borderRadius: '100px',
+            backgroundColor: '#F4F4F4',
+            width: 40,
+            height: 40,
+
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Indicator label={items.length} disabled={!items.length} color="dark" size={20} radius="xl">
+            <Burger variant="filled" onClick={toggle} opened={opened} />
+          </Indicator>
+        </Box>
+
+        <Restautant restaurant={data} />
+        <CategoriesSticky restaurantMenu={data} />
         {data?.categories.map((category) => (
           <div key={category.id}>
             <Text fz={30} fw={700} my="md" id={category.id}>
@@ -141,7 +133,7 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
         ))}
 
         <Modal opened={openedItem} onClose={closeItem} size="md" scrollAreaComponent={ScrollArea.Autosize}>
-          <UserItemModal item={item} />
+          <ItemModal item={item} />
         </Modal>
       </AppShell.Main>
 

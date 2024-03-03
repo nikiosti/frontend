@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import styles from './Login.module.css'
 
 import Link from 'next/link'
-import { Logotype } from '../Logo/Logotype'
+import { Logotype } from '../General/Logo/Logotype'
 
 export const Login = () => {
   const { mutate: login, data, isSuccess, isError, isPending } = useLogin()

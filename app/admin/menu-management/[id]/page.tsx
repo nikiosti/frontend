@@ -1,13 +1,14 @@
 'use client'
 
+import { Center, Text } from '@mantine/core'
 //Hooks
 import { useGetData } from '@/hook/useGetData'
 //Components
-import { Items } from '@/components/Admin/Items/Items'
+import { Items } from '@/components/Admin'
+
 //Types
-import { UseQueryResult } from '@tanstack/react-query'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
-import { Center, Text } from '@mantine/core'
+import { UseQueryResult } from '@tanstack/react-query'
 
 const Menu = ({ params }: { params: { id: string } }) => {
   const { data }: UseQueryResult<RestaurantMenu> = useGetData('restaurant_menu', `restaurant_menu/${params.id}/`)
@@ -24,11 +25,7 @@ const Menu = ({ params }: { params: { id: string } }) => {
     )
   }
 
-  return (
-    <div>
-      <Items data={data} />
-    </div>
-  )
+  return <Items data={data} />
 }
 
 export default Menu

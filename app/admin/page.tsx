@@ -1,6 +1,6 @@
 'use client'
 import { Center, Text, AppShell } from '@mantine/core'
-import { Restaurants } from '@/components/Restaurants/Restaurants/Restaurants'
+import { Restaurants } from '@/components/Admin'
 
 const Admin = () => {
   return (

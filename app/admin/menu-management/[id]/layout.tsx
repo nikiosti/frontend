@@ -1,17 +1,16 @@
 'use client'
 
-import { RestaurantManager } from '@/components/Admin/Restaurant/RestaurantManager/RestaurantManager'
-import { Categories } from '@/components/Category/Categories/Categories'
-import { CategoryBuilder } from '@/components/Category/CategoryBuilder/CategoryBuilder'
-import { Restaurants } from '@/components/Restaurants/Restaurants/Restaurants'
-import { RestaurateurProfile } from '@/components/Restaurateur/RestaurateurProfile/RestaurateurProfile'
+import { Burger, Group, AppShell, Text, ScrollArea } from '@mantine/core'
+
+import { Categories, CategoryBuilder, RestaurantManager, Restaurants, Restaurateur } from '@/components/Admin'
 
 import { useGetData } from '@/hook/useGetData'
-import { RestaurantMenu } from '@/types/RestaurantMenu'
-import { Burger, Group, AppShell, Box, RemoveScroll, Text, Stack, ScrollArea, rem } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { UseQueryResult } from '@tanstack/react-query'
+
 import Link from 'next/link'
+
+import { RestaurantMenu } from '@/types/RestaurantMenu'
 
 const RestaurantMenuLayout = ({ children, params }: { children: React.ReactNode; params: { id: string } }) => {
   const { data }: UseQueryResult<RestaurantMenu> = useGetData('restaurant_menu', `restaurant_menu/${params.id}/`)
@@ -55,7 +54,7 @@ const RestaurantMenuLayout = ({ children, params }: { children: React.ReactNode;
         </AppShell.Section>
 
         <AppShell.Section>
-          <RestaurateurProfile />
+          <Restaurateur />
         </AppShell.Section>
       </AppShell.Navbar>
       <AppShell.Header bg="#F4F4F4">
