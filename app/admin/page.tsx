@@ -4,7 +4,7 @@ import { Restaurants } from '@/components/Restaurants/Restaurants/Restaurants'
 
 const Admin = () => {
   return (
-    <AppShell bg="#ecedfd" padding="xs">
+    <AppShell bg="#F4F4F4" padding="xs">
       <AppShell.Main pt="xl">
         <Center>
           <div>

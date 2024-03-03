@@ -11,6 +11,7 @@ import { RestaurantMenu } from '@/types/RestaurantMenu'
 import { Burger, Group, AppShell, Box, RemoveScroll, Text, Stack, ScrollArea, rem } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { UseQueryResult } from '@tanstack/react-query'
+import Link from 'next/link'
 
 const RestaurantMenuLayout = ({ children, params }: { children: React.ReactNode; params: { id: string } }) => {
   const { data }: UseQueryResult<RestaurantMenu> = useGetData('restaurant_menu', `restaurant_menu/${params.id}/`)
@@ -59,7 +60,10 @@ const RestaurantMenuLayout = ({ children, params }: { children: React.ReactNode;
       </AppShell.Navbar>
       <AppShell.Header bg="#F4F4F4">
         <Group h="100%" mx="xs" justify="space-between">
-          <Restaurants />
+          <Group>
+            <Restaurants />
+            <Link href={'/menu/' + params?.id}>Меню</Link>
+          </Group>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" />
         </Group>
       </AppShell.Header>

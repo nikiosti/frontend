@@ -66,7 +66,7 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
         <Center>
           <Stack align="center">
             <IconPlus stroke={1} size={50} color="#000" />
-            <Text fz={20} fw={500} c="dark">
+            <Text fz={20} fw={500} c="dark" style={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
               Новая позиция
             </Text>
           </Stack>

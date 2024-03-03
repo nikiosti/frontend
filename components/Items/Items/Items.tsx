@@ -104,7 +104,7 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
         size="lg"
       >
         <ItemForm form={form} formSubmit={handlePatchMenuItem}>
-          <Button type="submit" fullWidth radius="xl">
+          <Button type="submit" fullWidth>
             Сохранить
           </Button>
           <Container>
@@ -112,7 +112,7 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
               mt="xs"
               onClick={() => {
                 deleteItem(`menu_item/${form.values.id}/`)
-                close()
+                close() 
               }}
             >
               <Text c="dimmed">Удалить</Text>

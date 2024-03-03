@@ -2,16 +2,16 @@
 
 import { useGetData } from '@/hook/useGetData'
 import { Restaurant, RestaurantListResponse } from '@/types/Restaurant'
-import { ActionIcon, Avatar, Button, Group, Modal, Text, Tooltip, UnstyledButton } from '@mantine/core'
+import { ActionIcon, Avatar, Button, Group, Modal, Text, Tooltip } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { IconPlus } from '@tabler/icons-react'
 import { UseQueryResult } from '@tanstack/react-query'
 import Link from 'next/link'
-import { RestaurantForm } from '../RestaurantForm/RestaurantForm'
+import { RestaurantForm } from '../../Admin/Forms/RestaurantForm/RestaurantForm'
 import { usePostData } from '@/hook/usePostData'
 import { useEffect } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 import styles from './Restaurants.module.css'
 
@@ -38,9 +38,6 @@ export const Restaurants = () => {
       form.setFieldValue('image', acceptedFiles[0])
     }
   }
-
-  const pathname = usePathname()
-  const restaurant = restaurants?.results.find((item) => pathname.includes(item.id))
 
   const {
     mutate: postRestaurant,
@@ -71,32 +68,28 @@ export const Restaurants = () => {
 
   return (
     <>
-      <Group gap="xs">
-        <Avatar.Group>
-          {restaurants?.results.map((restaurant) => (
-            <Link href={'/admin/menu-management/' + restaurant.id} key={restaurant.id}>
-              <Tooltip label={restaurant.name} withArrow>
-                <Avatar src={restaurant.image_url} size={45} className={styles.avatar} variant="filled">
-                  {restaurant.image_url ? (
-                    <Text fw={500}>{restaurant.name}</Text>
-                  ) : (
-                    <Text fw={500}>{restaurant.name.substring(0, 3)}</Text>
-                  )}
-                </Avatar>
-              </Tooltip>
-            </Link>
-          ))}
-          <Tooltip withArrow label="Новое заведение">
-            <Avatar variant="transparent" size={45}>
-              <ActionIcon size="xl" variant="transparent" radius="xl" onClick={openRestaurant}>
-                <IconPlus stroke={1} color="#000" size={45} />
-              </ActionIcon>
-            </Avatar>
-          </Tooltip>
-        </Avatar.Group>
-
-        <Link href={'/menu/' + restaurant?.id}>Меню</Link>
-      </Group>
+      <Avatar.Group>
+        {restaurants?.results.map((restaurant) => (
+          <Link href={'/admin/menu-management/' + restaurant.id} key={restaurant.id}>
+            <Tooltip label={restaurant.name} withArrow>
+              <Avatar src={restaurant.image_url} size={45} className={styles.avatar} variant="filled">
+                {restaurant.image_url ? (
+                  <Text fw={500}>{restaurant.name}</Text>
+                ) : (
+                  <Text fw={500}>{restaurant.name.substring(0, 3)}</Text>
+                )}
+              </Avatar>
+            </Tooltip>
+          </Link>
+        ))}
+        <Tooltip withArrow label="Новое заведение">
+          <Avatar variant="transparent" size={45}>
+            <ActionIcon size="xl" variant="transparent" radius="xl" onClick={openRestaurant}>
+              <IconPlus stroke={1} color="#000" size={45} />
+            </ActionIcon>
+          </Avatar>
+        </Tooltip>
+      </Avatar.Group>
 
       <Modal
         opened={openedRestaurant}

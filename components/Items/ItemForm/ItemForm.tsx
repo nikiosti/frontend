@@ -98,7 +98,7 @@ export const ItemForm = ({
             )
           ) : (
             <Group>
-              <IconPhoto stroke={1.5} />
+              <IconPhoto stroke={1} />
               <Text fz="xl" ta="center">
                 Выберите картинку или перетащите ее сюда
               </Text>
@@ -118,7 +118,7 @@ export const ItemForm = ({
               price: '',
             })
           }
-          size="xl"
+          size="lg"
           styles={{
             label: {
               whiteSpace: 'normal',

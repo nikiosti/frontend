@@ -123,8 +123,7 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
                 md: 4,
                 lg: 2,
                 xl: 3,
-              }}
-            >
+              }}            >
               {category.items.map((item) => (
                 <Item
                   item={item}
@@ -136,6 +135,7 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
                 />
               ))}
             </SimpleGrid>
+            {children}
           </div>
         ))}
 

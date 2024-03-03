@@ -11,32 +11,11 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter()
 
   useEffect(() => {
-    const checkAuth = () => {
-      try {
-        const token = localStorage.getItem('access')
-        if (!token) {
-          router.push('/login')
-          return
-        }
-
-        const decodedToken = jwtDecode<TokenPayload>(token)
-
-        // if (decodedToken.exp * 1000 < Date.now()) {
-        //   router.push('/login')
-        //   return
-        // }
-
-        setLoading(false)
-      } catch (error) {
-        console.error('Authentication error:', error)
-        router.push('/login')
-      }
-    }
-
-    checkAuth()
+    !localStorage.getItem('access') && router.push('/login')
+    setLoading(false)
   }, [])
 
-  return loading ? <div>Loading...</div> : <>{children}</>
+  return loading ? <div></div> : <>{children}</>
 }
 
 export default PrivateRoute

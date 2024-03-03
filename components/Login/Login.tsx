@@ -40,16 +40,12 @@ export const Login = () => {
       header={{
         height: 80,
       }}
-      padding="xl"
+      padding={5}
     >
       <AppShell.Header bg="#ecedfd" px="lg">
         <Group h="100%" justify="space-between">
           <Link href="/">
             <Logotype order={1} />
-          </Link>
-
-          <Link href="/register">
-            <Text c="dimmed">Регестрация</Text>
           </Link>
         </Group>
       </AppShell.Header>
@@ -67,6 +63,11 @@ export const Login = () => {
                 Войти
               </Button>
             </form>
+            <Link href="/register">
+              <Text c="dimmed" ta="center" mt="xs">
+                Регестрация
+              </Text>
+            </Link>
           </Paper>
         </Container>
       </AppShell.Main>

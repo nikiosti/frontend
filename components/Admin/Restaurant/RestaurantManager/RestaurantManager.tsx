@@ -6,11 +6,12 @@ import { useDisclosure } from '@mantine/hooks'
 import { useGetData } from '@/hook/useGetData'
 import { useForm } from '@mantine/form'
 import { UseQueryResult } from '@tanstack/react-query'
-import { Avatar, Button, Container, Group, Modal, ScrollArea, Text, UnstyledButton } from '@mantine/core'
+import { Avatar, Button, Container, Group, Modal, Popover, ScrollArea, Text, UnstyledButton } from '@mantine/core'
 import { Restaurant, RestaurantListResponse } from '@/types/Restaurant'
-import { RestaurantForm } from '@/components/Restaurants/RestaurantForm/RestaurantForm'
+import { RestaurantForm } from '@/components/Admin/Forms/RestaurantForm/RestaurantForm'
 import { useDeleteData } from '@/hook/useDeleteData'
 import { usePatchData } from '@/hook/usePatchData'
+import { IconTrash } from '@tabler/icons-react'
 
 export const RestaurantManager = () => {
   const router = useRouter()
@@ -120,9 +121,26 @@ export const RestaurantManager = () => {
           </Button>
 
           <Container>
-            <UnstyledButton mt="xs" onClick={handleDeleteRestaurant}>
-              <Text c="dimmed">Удалить</Text>
-            </UnstyledButton>
+            <Popover withArrow withRoles>
+              <Popover.Target>
+                <Button
+                  radius="xl"
+                  variant="subtle"
+                  color="red"
+                  // onClick={handleDeleteRestaurant}
+                  rightSection={<IconTrash stroke={1.5} />}
+                >
+                  Удалить
+                </Button>
+              </Popover.Target>
+              <Popover.Dropdown>
+                <Text fw={500}>Удалить {restaurant?.name}?</Text>
+
+                <Button size="sm" radius="xl" mt="xs" onClick={handleDeleteRestaurant}>
+                  Да
+                </Button>
+              </Popover.Dropdown>
+            </Popover>
           </Container>
         </RestaurantForm>
       </Modal>
