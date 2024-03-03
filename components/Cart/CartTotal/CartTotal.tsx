@@ -9,9 +9,9 @@ export const CartTotal = ({ items }: { items: GroupedItem[] }) => {
   }, 0)
 
   return (
-    <Paper bg="#FFF" p="xs" radius={12}>
-      <Text fw={500} size="xl">
-        К оплате {totalPrice} рублей
+    <Paper p="xs" radius={12} bg="#F4F4F4">
+      <Text fw={500} size="xl" ta="center">
+        Заказ на {totalPrice} рублей
       </Text>
     </Paper>
   )

@@ -3,6 +3,7 @@
 import { RestaurantManager } from '@/components/Admin/Restaurant/RestaurantManager/RestaurantManager'
 import { Categories } from '@/components/Category/Categories/Categories'
 import { CategoryBuilder } from '@/components/Category/CategoryBuilder/CategoryBuilder'
+import { Restaurants } from '@/components/Restaurants/Restaurants/Restaurants'
 import { RestaurateurProfile } from '@/components/Restaurateur/RestaurateurProfile/RestaurateurProfile'
 
 import { useGetData } from '@/hook/useGetData'
@@ -24,16 +25,17 @@ const RestaurantMenuLayout = ({ children, params }: { children: React.ReactNode;
         breakpoint: 'sm',
         collapsed: { mobile: !opened },
       }}
+      header={{
+        height: 80,
+      }}
       padding="xs"
       withBorder={false}
     >
       <AppShell.Navbar py="md" px="xs">
         <AppShell.Section>
-          <Group wrap="nowrap" justify="space-between">
-            {/* <RestaurantAction /> */}
-
+          <Group justify="space-between" wrap="nowrap">
             <RestaurantManager />
-            <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+            <Burger opened={opened} onClick={toggle} hiddenFrom="sm" />
           </Group>
         </AppShell.Section>
 
@@ -55,16 +57,13 @@ const RestaurantMenuLayout = ({ children, params }: { children: React.ReactNode;
           <RestaurateurProfile />
         </AppShell.Section>
       </AppShell.Navbar>
-      <AppShell.Main bg="#F4F4F4">
-        <Burger
-          opened={opened}
-          onClick={toggle}
-          hiddenFrom="sm"
-          size="sm"
-          style={{ position: 'absolute', zIndex: 2, right: 10, top: 20 }}
-        />
-        {children}
-      </AppShell.Main>
+      <AppShell.Header bg="#F4F4F4">
+        <Group h="100%" mx="xs" justify="space-between">
+          <Restaurants />
+          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" />
+        </Group>
+      </AppShell.Header>
+      <AppShell.Main bg="#F4F4F4">{children}</AppShell.Main>
     </AppShell>
   )
 }

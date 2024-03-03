@@ -1,7 +1,19 @@
 'use client'
 
 //Mantine
-import { ActionIcon, Box, Button, Group, Image, NumberInput, Stack, Text, TextInput, Textarea } from '@mantine/core'
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Checkbox,
+  Group,
+  Image,
+  NumberInput,
+  Stack,
+  Text,
+  TextInput,
+  Textarea,
+} from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 

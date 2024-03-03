@@ -10,7 +10,6 @@ import {
   Modal,
   NumberInput,
   PasswordInput,
-  Text,
   TextInput,
   Textarea,
   createTheme,
@@ -24,15 +23,17 @@ const ReactQueryMantineProvider: React.FC<PropsWithChildren> = ({ children }) =>
   const [queryClientStore] = useState(() => new QueryClient(queryClientOptions))
 
   const theme = createTheme({
+    activeClassName: classes.active,
     components: {
       PasswordInput: PasswordInput.extend({
         classNames: classes,
         defaultProps: {
           radius: 12,
-          size: 'xl',
+          size: 'lg',
           styles: {
             input: {
               border: 0,
+              backgroundColor: '#F4F4F4',
             },
           },
         },
@@ -41,10 +42,11 @@ const ReactQueryMantineProvider: React.FC<PropsWithChildren> = ({ children }) =>
         classNames: classes,
         defaultProps: {
           radius: 12,
-          size: 'xl',
+          size: 'lg',
           styles: {
             input: {
               border: 0,
+              backgroundColor: '#F4F4F4',
             },
           },
         },
@@ -53,10 +55,11 @@ const ReactQueryMantineProvider: React.FC<PropsWithChildren> = ({ children }) =>
         classNames: classes,
         defaultProps: {
           radius: 12,
-          size: 'xl',
+          size: 'lg',
           styles: {
             input: {
               border: 0,
+              backgroundColor: '#F4F4F4',
             },
           },
         },
@@ -65,37 +68,23 @@ const ReactQueryMantineProvider: React.FC<PropsWithChildren> = ({ children }) =>
         classNames: classes,
         defaultProps: {
           radius: 12,
-          size: 'xl',
+          size: 'lg',
           styles: {
             input: {
               border: 0,
+              backgroundColor: '#F4F4F4',
             },
           },
         },
       }),
 
-      Button: Button.extend({ defaultProps: { color: 'violet.6', radius: 12, fw: 400, size: 'xl' } }),
+      Button: Button.extend({
+        defaultProps: { color: 'violet.6', radius: 12, fw: 400, size: 'lg' },
+      }),
 
       Modal: Modal.extend({
         defaultProps: {
           radius: 12,
-          styles: {
-            header: {
-              backgroundColor: '#F0F0F4',
-            },
-            body: {
-              backgroundColor: '#F0F0F4',
-            },
-            content: {
-              backgroundColor: '#F0F0F4',
-            },
-          },
-        },
-      }),
-
-      Group: Group.extend({
-        defaultProps: {
-          gap: '0.3rem',
         },
       }),
     },

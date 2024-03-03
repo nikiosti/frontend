@@ -1,0 +1,7 @@
+.item {
+  background-color: #f4f4f4;
+  cursor: pointer;
+  @mixin hover {
+    background-color: #ddd;
+  }
+}

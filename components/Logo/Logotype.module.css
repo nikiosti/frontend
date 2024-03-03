@@ -1,0 +1,6 @@
+.logo {
+  width: rem(24px);
+  height: rem(24px);
+  background-color: #000;
+  border-radius: 100%;
+}

@@ -3,10 +3,15 @@
 import { useEffect } from 'react'
 
 import { useForm } from '@mantine/form'
-import { TextInput, PasswordInput, Button, Paper, Container, Title } from '@mantine/core'
+import { TextInput, PasswordInput, Button, Paper, Container, Title, AppShell, Center, Text, Group } from '@mantine/core'
 
 import { useLogin } from '@/hook/useLogin'
 import { useRouter } from 'next/navigation'
+
+import styles from './Login.module.css'
+
+import Link from 'next/link'
+import { Logotype } from '../Logo/Logotype'
 
 export const Login = () => {
   const { mutate: login, data, isSuccess, isError, isPending } = useLogin()
@@ -31,18 +36,40 @@ export const Login = () => {
   }
 
   return (
-    <Container size={420} my={40}>
-      <Paper p={30} mt={30} radius={12} bg="#F0F0F4">
-        <form onSubmit={form.onSubmit(handleLogin)}>
-          <Title ta="center"> Вход</Title>
+    <AppShell
+      header={{
+        height: 80,
+      }}
+      padding="xl"
+    >
+      <AppShell.Header bg="#ecedfd" px="lg">
+        <Group h="100%" justify="space-between">
+          <Link href="/">
+            <Logotype order={1} />
+          </Link>
 
-          <TextInput {...form.getInputProps('username')} mt="xs" size="xl" placeholder="Логин" />
-          <PasswordInput {...form.getInputProps('password')} mt="xs" size="xl" placeholder="Пароль" />
-          <Button type="submit" loading={isPending} mt="lg" fullWidth radius="xl">
-            Войти
-          </Button>
-        </form>
-      </Paper>
-    </Container>
+          <Link href="/register">
+            <Text c="dimmed">Регестрация</Text>
+          </Link>
+        </Group>
+      </AppShell.Header>
+      <AppShell.Main bg="#ecedfd">
+        <Container maw={460}>
+          <Paper p="xl" radius={12}>
+            <form onSubmit={form.onSubmit(handleLogin)}>
+              <Title order={4} fz={30} ta="center">
+                Вход
+              </Title>
+
+              <TextInput {...form.getInputProps('username')} mt="xs" size="lg" placeholder="Логин" required />
+              <PasswordInput {...form.getInputProps('password')} mt="xs" size="lg" placeholder="Пароль" required />
+              <Button type="submit" loading={isPending} mt="lg" fullWidth radius="xl" size="lg">
+                Войти
+              </Button>
+            </form>
+          </Paper>
+        </Container>
+      </AppShell.Main>
+    </AppShell>
   )
 }

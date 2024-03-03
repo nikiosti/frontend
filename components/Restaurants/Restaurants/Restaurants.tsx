@@ -38,36 +38,50 @@ export const Restaurants = () => {
       form.setFieldValue('image', acceptedFiles[0])
     }
   }
+
+  const pathname = usePathname()
+  const restaurant = restaurants?.results.find((item) => pathname.includes(item.id))
+
   const {
     mutate: postRestaurant,
     data: postRestaurantResponse,
     isSuccess: isSuccessPostRestaurant,
   } = usePostData(['restaurants'])
 
+  const handlePostRestaurant = () => {
+    const formData = new FormData()
+    Object.entries(form.values).forEach(([key, value]) => {
+      if (value) formData.append(key, value)
+    })
+
+    postRestaurant({
+      key: 'restaurants/',
+      datas: formData,
+    })
+
+    closeRestaurant()
+    form.reset()
+  }
+
   useEffect(() => {
     if (isSuccessPostRestaurant) {
-      router.push(`/admin/menu/${postRestaurantResponse.id}`)
+      router.push(`/admin/menu-management/${postRestaurantResponse.id}`)
     }
   }, [isSuccessPostRestaurant])
 
-  const pathname = usePathname()
-  const restaurant = restaurants?.results.find((item) => pathname.includes(item.id || ''))
-
   return (
     <>
-      <Group>
+      <Group gap="xs">
         <Avatar.Group>
           {restaurants?.results.map((restaurant) => (
-            <Link href={'/admin/menu/' + restaurant.id} key={restaurant.id}>
+            <Link href={'/admin/menu-management/' + restaurant.id} key={restaurant.id}>
               <Tooltip label={restaurant.name} withArrow>
                 <Avatar src={restaurant.image_url} size={45} className={styles.avatar} variant="filled">
-                  <Link href={'/admin/menu/' + restaurant.id}>
-                    {restaurant.image_url ? (
-                      <Text fw={500}>{restaurant.name}</Text>
-                    ) : (
-                      <Text fw={500}>{restaurant.name.substring(0, 3)}</Text>
-                    )}
-                  </Link>
+                  {restaurant.image_url ? (
+                    <Text fw={500}>{restaurant.name}</Text>
+                  ) : (
+                    <Text fw={500}>{restaurant.name.substring(0, 3)}</Text>
+                  )}
                 </Avatar>
               </Tooltip>
             </Link>
@@ -94,25 +108,7 @@ export const Restaurants = () => {
         }
         size="lg"
       >
-        <RestaurantForm
-          form={form}
-          formSubmit={() => {
-            const formData = new FormData()
-
-            for (const [key, value] of Object.entries(form.values)) {
-              if (value) formData.append(key, value)
-            }
-
-            postRestaurant({
-              key: 'restaurants/',
-              datas: formData,
-            })
-
-            closeRestaurant()
-            form.reset()
-          }}
-          handleDrop={handleDrop}
-        >
+        <RestaurantForm form={form} formSubmit={handlePostRestaurant} handleDrop={handleDrop}>
           <Button type="submit" fullWidth radius="xl">
             Сохранить
           </Button>

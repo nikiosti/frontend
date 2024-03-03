@@ -17,7 +17,17 @@ export const CategoryBuilder = ({ restaurantId }: { restaurantId: string }) => {
   })
 
   const { mutate: postCategory } = usePostData(['restaurant_menu'])
+  const handlePostCategory = () => {
+    const formData = new FormData()
+    Object.entries(form.values).forEach(([key, value]) => formData.append(key, value))
+    postCategory({
+      datas: formData,
+      key: 'category/',
+    })
 
+    closeCategory()
+    form.reset()
+  }
   return (
     <>
       <Button onClick={openCategory} bg="violet.4" fullWidth size="md" radius="xl">
@@ -33,19 +43,8 @@ export const CategoryBuilder = ({ restaurantId }: { restaurantId: string }) => {
           </Text>
         }
       >
-        <CategoryForm
-          form={form}
-          formSubmit={() => {
-            postCategory({
-              datas: form.values,
-              key: 'category/',
-            })
-
-            closeCategory()
-            form.reset()
-          }}
-        >
-          <Button type="submit" radius="xl" fullWidth >
+        <CategoryForm form={form} formSubmit={handlePostCategory}>
+          <Button type="submit" radius="xl" fullWidth>
             Сохранить
           </Button>
         </CategoryForm>

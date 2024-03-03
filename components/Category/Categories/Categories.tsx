@@ -4,11 +4,10 @@ import { useDeleteData } from '@/hook/useDeleteData'
 import { usePatchData } from '@/hook/usePatchData'
 import { CategoryItem } from '@/types/Category'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
-import { Box, Button, Container, Modal, Paper, Text, UnstyledButton } from '@mantine/core'
+import { Button, Container, Modal, Paper, Text, UnstyledButton } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { CategoryForm } from '@/components/Category/CategoryForm/CategoryForm'
-import { IconDeviceFloppy, IconTrash } from '@tabler/icons-react'
 
 import styles from './Categories.module.css'
 
@@ -47,8 +46,18 @@ export const Categories = ({ menu }: { menu: RestaurantMenu | undefined }) => {
   }
 
   const { mutate: patchCategory } = usePatchData(['restaurant_menu'])
-  const { mutate: deleteCategory } = useDeleteData(['restaurant_menu'])
+  const handlePatchCategory = () => {
+    const formData = new FormData()
+    Object.entries(form.values).forEach(([key, value]) => formData.append(key, value))
+    patchCategory({ key: `category/${form.values.id}/`, datas: formData })
+    closeCategory()
+  }
 
+  const { mutate: deleteCategory } = useDeleteData(['restaurant_menu'])
+  const handleDeleteCategory = () => {
+    deleteCategory(`category/${form.values.id}/`)
+    closeCategory()
+  }
   return (
     <>
       {menu?.categories?.map((category) => (
@@ -64,24 +73,12 @@ export const Categories = ({ menu }: { menu: RestaurantMenu | undefined }) => {
           </Text>
         }
       >
-        <CategoryForm
-          form={form}
-          formSubmit={() => {
-            patchCategory({ key: `category/${form.values.id}/`, datas: form.values })
-            closeCategory()
-          }}
-        >
+        <CategoryForm form={form} formSubmit={handlePatchCategory}>
           <Button type="submit" radius="xl" fullWidth>
             Сохранить
           </Button>
           <Container>
-            <UnstyledButton
-              mt="xs"
-              onClick={() => {
-                deleteCategory(`category/${form.values.id}/`)
-                closeCategory()
-              }}
-            >
+            <UnstyledButton mt="xs" onClick={handleDeleteCategory}>
               <Text c="dimmed">Удалить</Text>
             </UnstyledButton>
           </Container>

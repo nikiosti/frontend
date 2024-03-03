@@ -1,0 +1,6 @@
+.clear {
+  cursor: pointer;
+  @mixin hover {
+    opacity: 0.5;
+  }
+}

@@ -14,6 +14,7 @@ export const Item = ({ item, onActionClick }: { item: ItemType; onActionClick: (
   return (
     <>
       <Card
+        opacity={item.stop_list ? 0.3 : 1}
         p="xs"
         className={styles.card}
         radius="md"

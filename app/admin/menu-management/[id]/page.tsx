@@ -8,8 +8,6 @@ import { Items } from '@/components/Items/Items/Items'
 import { UseQueryResult } from '@tanstack/react-query'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
 import { Center, Text } from '@mantine/core'
-import { Restaurants } from '@/components/Restaurants/Restaurants/Restaurants'
-import Link from 'next/link'
 
 const Menu = ({ params }: { params: { id: string } }) => {
   const { data }: UseQueryResult<RestaurantMenu> = useGetData('restaurant_menu', `restaurant_menu/${params.id}/`)
@@ -17,7 +15,6 @@ const Menu = ({ params }: { params: { id: string } }) => {
   if (!data?.categories.length) {
     return (
       <div>
-        <Restaurants />
         <Center h="75vh">
           <Text fw={500} fz="lg">
             Создайте новою категорию
@@ -29,7 +26,6 @@ const Menu = ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      <Restaurants />
       <Items data={data} />
     </div>
   )

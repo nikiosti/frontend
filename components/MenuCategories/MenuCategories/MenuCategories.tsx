@@ -4,6 +4,8 @@ import { CategoryItem } from '@/types/Category'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
 import { Paper, Text } from '@mantine/core'
 
+import styles from './MenuCategories.module.css'
+
 const MenuCategoryCard = ({ category }: { category: CategoryItem }) => {
   const scroll = (id: string) => {
     const element = document.getElementById(id)
@@ -17,6 +19,7 @@ const MenuCategoryCard = ({ category }: { category: CategoryItem }) => {
 
   return (
     <Paper
+      className={styles.item}
       my="xs"
       p="xs"
       radius={12}

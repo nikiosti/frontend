@@ -6,7 +6,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { usePostData } from '@/hook/usePostData'
 
 //Components
-import { Button, Center, Modal, Stack, Text } from '@mantine/core'
+import { Button, Center, Checkbox, Group, Modal, Stack, Text } from '@mantine/core'
 import { ItemForm } from '../ItemForm/ItemForm'
 
 //Styles
@@ -33,24 +33,31 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
     },
   })
 
-  const mutation = usePostData(['restaurant_menu'])
+  const { mutate: postMenuItem } = usePostData(['restaurant_menu'])
+  const handlePostMenuItem = () => {
+    const formData = new FormData()
 
-  const handleItemToFormData = (datas: Item, formData: FormData): FormData => {
-    for (let value of Object.entries(datas)) {
-      if (value[1]) {
-        if (value[1] instanceof Array) {
-          value[1].map((el, index) => {
-            for (let item of Object.entries(el)) {
-              formData.append(`${value[0]}[${index}]${item[0]}`, item[1])
-            }
+    Object.entries(form.values).forEach(([key, value]) => {
+      if (value) {
+        if (value instanceof Array) {
+          value.map((element, index) => {
+            Object.entries(element).forEach(([nested_key, nested_value]) =>
+              formData.append(`${key}[${index}]${nested_key}`, nested_value as string)
+            )
           })
-        } else {
-          formData.append(value[0], value[1])
+        } else if (key === 'image' && typeof value === 'string') return
+        else {
+          formData.append(key, value as string)
         }
       }
-    }
+    })
 
-    return formData
+    postMenuItem({
+      key: 'menu_item/',
+      datas: formData,
+    })
+    form.reset()
+    close()
   }
 
   return (
@@ -58,7 +65,7 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
       <Button onClick={open} className={styles.card}>
         <Center>
           <Stack align="center">
-            <IconPlus stroke={1} size={50} color="#000000" />
+            <IconPlus stroke={1} size={50} color="#000" />
             <Text fz={20} fw={500} c="dark">
               Новая позиция
             </Text>
@@ -69,26 +76,13 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
         opened={opened}
         onClose={close}
         title={
-          <Text fw={700} fz={20}>
-            Новая позиция
-          </Text>
+          <Group align="center">
+            <Text fw={700}>Новая позиция</Text>
+          </Group>
         }
         size="xl"
       >
-        <ItemForm
-          form={form}
-          formSubmit={() => {
-            const formData = new FormData()
-            const datas = handleItemToFormData(form.values, formData)
-
-            mutation.mutate({
-              key: 'menu_item/',
-              datas,
-            })
-            form.reset()
-            close()
-          }}
-        >
+        <ItemForm form={form} formSubmit={handlePostMenuItem}>
           <Button type="submit" mt="xs" fullWidth>
             Сохранить
           </Button>

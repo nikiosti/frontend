@@ -1,7 +1,7 @@
 'use client'
 
 import { ItemPrice, Item as ItemType } from '@/types/RestaurantMenu'
-import { ActionIcon, Box, Button, Card, Group, Image, Paper, Text } from '@mantine/core'
+import { ActionIcon, Box, Button, Card, Group, Image, Indicator, Paper, Text } from '@mantine/core'
 import { useMenuStore } from '@/store/Menu/Menu'
 import { useShallow } from 'zustand/react/shallow'
 import { IconMinus, IconPlus } from '@tabler/icons-react'
@@ -15,59 +15,55 @@ const MenuItemPrices = ({ price, item }: { price: ItemPrice; item: ItemType }) =
   )
 
   return (
-    <Box mt="xs" key={price.id}>
-      <Paper p="xs">
-        <Group justify="space-between">
-          <div>
-            <Text fw={500} fz={20}>
-              {price.size_description}
-            </Text>
-            <Text c="dimmed" fz={14} mb={5}>
-              {price.price} BYN
-            </Text>
-          </div>
+    <Paper p="xs" mt="xs" key={price.id} bg="#F4F4F4">
+      <Group justify="space-between" wrap="nowrap">
+        <div>
+          <Text fw={500}>{price.size_description}</Text>
 
-          {indexMenuItem === -1 ? (
-            <ActionIcon color="green" size="xl" radius={12} onClick={() => addItem(item, price)}>
-              <IconPlus />
+          <Text c="dimmed" fz={14} mb={5}>
+            {price.price} рублей
+          </Text>
+        </div>
+
+        {indexMenuItem === -1 ? (
+          <ActionIcon color="dark" variant="transparent" onClick={() => addItem(item, price)}>
+            <IconPlus stroke={1} />
+          </ActionIcon>
+        ) : (
+          <Group wrap="nowrap" gap={0}>
+            <ActionIcon
+              c="dark"
+              variant="transparent"
+              onClick={() => setQuantity(items[indexMenuItem].item.id, price, -1)}
+            >
+              <IconMinus stroke={1} />
             </ActionIcon>
-          ) : (
-            <Button.Group>
-              <Button size="xs" onClick={() => setQuantity(items[indexMenuItem].item.id, price, -1)}>
-                <IconMinus />
-              </Button>
-
-              <Group bg="green">
-                <Box w={20}>
-                  <Text c="#fff" ta="center" fw={500}>
-                    {items[indexMenuItem].quantity}
-                  </Text>
-                </Box>
-              </Group>
-              <Button onClick={() => setQuantity(items[indexMenuItem].item.id, price, 1)} size="xs">
-                <IconPlus />
-              </Button>
-            </Button.Group>
-          )}
-        </Group>
-      </Paper>
-    </Box>
+            <div style={{ width: 24, height: 24, borderRadius: '100%', backgroundColor: '#000', color: '#fff' }}>
+              <Text ta="center">{items[indexMenuItem].quantity}</Text>
+            </div>
+            <ActionIcon
+              c="dark"
+              variant="transparent"
+              onClick={() => setQuantity(items[indexMenuItem].item.id, price, 1)}
+            >
+              <IconPlus stroke={1} />
+            </ActionIcon>
+          </Group>
+        )}
+      </Group>
+    </Paper>
   )
 }
 
 export const UserItemModal = ({ item }: { item: ItemType | undefined }) => {
   return (
-    <Card padding="xs" radius={12} bg="#F0F0F4">
-      <Image src={item?.image_url} mah={300} radius={12} />
-
-      <Text fw={700} size="xl" mt="xs">
-        {item?.name}
-      </Text>
-      <Text mt="md">{item?.description}</Text>
+    <Card radius={12} padding={0}>
+      <Image src={item?.image_url} mah={200} radius={12} />
 
       {item?.prices.map((price) => (
         <MenuItemPrices key={price.id} price={price} item={item} />
       ))}
+      <Text mt="md">{item?.description}</Text>
     </Card>
   )
 }

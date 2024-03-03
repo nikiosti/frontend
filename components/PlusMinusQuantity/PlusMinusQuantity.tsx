@@ -9,13 +9,13 @@ import { useShallow } from 'zustand/react/shallow'
 export const PlusMinusQuantity = ({ item }: { item: GroupedItem }) => {
   const setQuantity = useMenuStore(useShallow((state) => state.setQuantity))
   return (
-    <Group wrap="nowrap" gap="0rem">
-      <ActionIcon variant="white" c="dark" onClick={() => setQuantity(item.item.id, item.price, -1)}>
-        <IconMinus />
+    <Group wrap="nowrap" gap={0}>
+      <ActionIcon variant="transparent" c="dark" onClick={() => setQuantity(item.item.id, item.price, -1)}>
+        <IconMinus stroke={1} />
       </ActionIcon>
 
-      <ActionIcon variant="white" c="dark" onClick={() => setQuantity(item.item.id, item.price, 1)}>
-        <IconPlus />
+      <ActionIcon variant="transparent" c="dark" onClick={() => setQuantity(item.item.id, item.price, 1)}>
+        <IconPlus stroke={1} />
       </ActionIcon>
     </Group>
   )

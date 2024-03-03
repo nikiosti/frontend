@@ -2,19 +2,7 @@
 
 //Components
 import { Item } from '../Item/Item'
-import {
-  Box,
-  Button,
-  Center,
-  Container,
-  Grid,
-  Group,
-  Modal,
-  ScrollArea,
-  SimpleGrid,
-  Text,
-  UnstyledButton,
-} from '@mantine/core'
+import { Button, Checkbox, Container, Modal, ScrollArea, SimpleGrid, Switch, Text, UnstyledButton } from '@mantine/core'
 import { ItemBuilder } from '../ItemBulider/ItemBuilder'
 import { Item as ItemType, RestaurantMenu } from '@/types/RestaurantMenu'
 
@@ -25,7 +13,6 @@ import { useDisclosure } from '@mantine/hooks'
 import { useForm } from '@mantine/form'
 //Types
 import { ItemForm } from '../ItemForm/ItemForm'
-import { IconDeviceFloppy, IconTrash } from '@tabler/icons-react'
 
 export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
   const { mutate: deleteItem } = useDeleteData(['restaurant_menu'])
@@ -55,25 +42,31 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
     open()
   }
 
-  const handleItemToFormData = (datas: ItemType, formData: FormData): FormData => {
-    if (!(datas.image instanceof File)) {
-      datas.image = null
-    }
-    for (let value of Object.entries(datas)) {
-      if (value[1]) {
-        if (value[1] instanceof Array) {
-          value[1].map((el, index) => {
-            for (let item of Object.entries(el)) {
-              formData.append(`${value[0]}[${index}]${item[0]}`, item[1])
-            }
+  const handlePatchMenuItem = () => {
+    const formData = new FormData()
+    Object.entries(form.values).forEach(([key, value]) => {
+      if (value) {
+        if (value instanceof Array) {
+          value.map((element, index) => {
+            Object.entries(element).forEach(([nested_key, nested_value]) =>
+              formData.append(`${key}[${index}]${nested_key}`, nested_value as string)
+            )
           })
-        } else {
-          formData.append(value[0], value[1])
+        } else if (key === 'image' && typeof value === 'string') return
+        else {
+          formData.append(key, value as string)
         }
+      } else if (typeof value === 'boolean') {
+        formData.append(key, value.toString())
       }
-    }
+    })
 
-    return formData
+    patchItem({
+      key: `menu_item/${form.values.id}/`,
+      datas: formData,
+    })
+
+    close()
   }
   return (
     <div>
@@ -84,8 +77,9 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
           </Text>
 
           <SimpleGrid
+            spacing={5}
             cols={{
-              base: 1,
+              base: 2,
               xs: 2,
               sm: 2,
               md: 3,
@@ -106,27 +100,10 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
         scrollAreaComponent={ScrollArea.Autosize}
         opened={opened}
         onClose={close}
-        title={
-          <Text fw={700} fz="xl">
-            Правки позиции
-          </Text>
-        }
+        title={<Switch color="dark" {...form.getInputProps('stop_list', { type: 'checkbox' })} label="Стоп лист" />}
         size="lg"
       >
-        <ItemForm
-          form={form}
-          formSubmit={() => {
-            const formData = new FormData()
-            const datas = handleItemToFormData(form.values, formData)
-
-            patchItem({
-              key: `menu_item/${form.values.id}/`,
-              datas: datas,
-            })
-
-            close()
-          }}
-        >
+        <ItemForm form={form} formSubmit={handlePatchMenuItem}>
           <Button type="submit" fullWidth radius="xl">
             Сохранить
           </Button>
