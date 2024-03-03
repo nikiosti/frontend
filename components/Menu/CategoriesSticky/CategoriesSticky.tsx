@@ -17,7 +17,7 @@ export const CategoriesSticky = ({ restaurantMenu }: { restaurantMenu: Restauran
   }
 
   return (
-    <Box p="xs" bg="#FFF" hiddenFrom="lg">
+    <Box p="xs" bg="#FFF" hiddenFrom="lg" style={{ position: 'sticky', top: -1, zIndex: 2 }}>
       <ScrollArea
         offsetScrollbars="x"
         scrollbarSize={2}

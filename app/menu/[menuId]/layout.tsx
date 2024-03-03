@@ -47,7 +47,7 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
 
   return (
     <AppShell
-      bg="#e4e4e6"
+      bg="#FFF"
       padding={5}
       withBorder={false}
       navbar={{ width: 340, breakpoint: 'lg', collapsed: { mobile: !opened } }}
@@ -59,7 +59,7 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
             Меню
           </Text>
         </AppShell.Section>
-        <AppShell.Section grow component={ScrollArea.Autosize} my="md" visibleFrom="lg">
+        <AppShell.Section component={ScrollArea.Autosize} my="md" visibleFrom="lg">
           <Categories data={data} />
         </AppShell.Section>
 
@@ -80,7 +80,7 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
           style={{
             zIndex: 100,
             position: 'fixed',
-            right: 10,
+            right: 12,
             top: 10,
             borderRadius: '100px',
             backgroundColor: '#F4F4F4',
