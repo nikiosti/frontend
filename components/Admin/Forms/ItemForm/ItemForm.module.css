@@ -1,0 +1,29 @@
+.dropzone {
+  border-radius: rem(12px);
+  margin-top: var(--mantine-spacing-xs);
+  padding: var(--mantine-spacing-sm);
+  background-color: #f4f4f4;
+}
+
+.image {
+  border-radius: rem(8px);
+}
+
+.text__space {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.icon {
+  fill: var(--mantine-color-red-6);
+  width: 70%;
+  height: 70%;
+}
+
+.icon__button {
+  flex: 1;
+  min-width: rem(50px);
+  min-height: rem(50px);
+  border-radius: rem(12px);
+  background-color: #f4f4f4;
+}

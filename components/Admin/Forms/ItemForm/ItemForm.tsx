@@ -5,7 +5,10 @@ import { UseFormReturnType } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 
 import { Item } from '@/types/RestaurantMenu'
-import { IconCircleMinus, IconPhoto } from '@tabler/icons-react'
+
+import { IconCircleMinus } from '@tabler/icons-react'
+
+import styles from './ItemForm.module.css'
 
 export const ItemForm = ({
   form,
@@ -27,7 +30,7 @@ export const ItemForm = ({
       <TextInput
         {...form.getInputProps(`prices.${index}.size_description`)}
         label={'Описание'}
-        placeholder="Мега капуч"
+        placeholder="Мега капучино 400 мл"
         required
       />
       <NumberInput
@@ -37,22 +40,12 @@ export const ItemForm = ({
         max={1000}
         decimalScale={2}
         fixedDecimalScale
-        placeholder="9.50 BYN"
+        placeholder="7 рублей"
         required
       />
 
-      <ActionIcon
-        flex={1}
-        variant="white"
-        color="white"
-        radius={12}
-        miw={60}
-        mih={60}
-        w={60}
-        h={60}
-        onClick={() => form.removeListItem('prices', index)}
-      >
-        <IconCircleMinus stroke={1.5} style={{ width: '70%', height: '70%' }} fill="red" />
+      <ActionIcon className={styles.icon__button} onClick={() => form.removeListItem('prices', index)}>
+        <IconCircleMinus stroke={1.5} className={styles.icon} />
       </ActionIcon>
     </Group>
   ))
@@ -65,36 +58,25 @@ export const ItemForm = ({
           data-autofocus
           required
           label="Название позиции"
-          placeholder="Хинкали классические"
+          placeholder="Капучино"
         />
 
-        <Dropzone onDrop={handleDrop} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} mt="xs" radius={12}>
+        <Dropzone onDrop={handleDrop} accept={IMAGE_MIME_TYPE} maxSize={5 * 1024 * 1024} className={styles.dropzone}>
           {form.values.image ? (
             form.values.image instanceof File ? (
-              <Image
-                mah={250}
-                maw={250}
-                radius={8}
-                src={URL.createObjectURL(form.values.image)}
-                alt="Новое заведение"
-              />
+              <Image className={styles.image} src={URL.createObjectURL(form.values.image)} alt="Новое заведение" />
             ) : (
-              <Image radius={8} mah={250} maw={250} src={form.values.image_url} alt="Новое заведение" />
+              <Image className={styles.image} src={form.values.image_url} alt="Новое заведение" />
             )
           ) : (
-            <Group>
-              <IconPhoto stroke={1} />
-              <Text fz="xl" ta="center">
-                Выберите картинку или перетащите ее сюда
-              </Text>
-            </Group>
+            <Text fw={500}>Выберите изображение или перетащите его сюда</Text>
           )}
         </Dropzone>
 
         {ItemsPrices}
 
         <Button
-          mt="lg"
+          mt="xs"
           fullWidth
           color="#000"
           onClick={() =>
@@ -103,13 +85,7 @@ export const ItemForm = ({
               price: '',
             })
           }
-          size="lg"
-          styles={{
-            label: {
-              whiteSpace: 'normal',
-              wordWrap: 'break-word',
-            },
-          }}
+          classNames={{ label: styles.text__space }}
         >
           Добавить вариацию
         </Button>
@@ -119,7 +95,7 @@ export const ItemForm = ({
         <Textarea
           {...form.getInputProps('description')}
           label="Описание"
-          placeholder="Моцарелла, сыры чеддер и пармезан, фирменный соус альфредо"
+          placeholder="Капучино — это не просто кофе с молоком, а настоящее наслаждение под пышной шапкой из молочной пенки."
           mt="xs"
         />
 

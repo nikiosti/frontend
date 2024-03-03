@@ -1,6 +1,6 @@
 'use client'
 
-import { Item } from '@/components/Items/Item/Item'
+import { Item } from '@/components/Admin/Item/Item'
 import { useGetData } from '@/hook/useGetData'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
 import {
@@ -123,7 +123,8 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
                 md: 4,
                 lg: 2,
                 xl: 3,
-              }}            >
+              }}
+            >
               {category.items.map((item) => (
                 <Item
                   item={item}

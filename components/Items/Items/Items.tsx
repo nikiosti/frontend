@@ -1,9 +1,9 @@
 'use client'
 
 //Components
-import { Item } from '../Item/Item'
+import { Item } from '../../Admin/Item/Item'
 import { Button, Checkbox, Container, Modal, ScrollArea, SimpleGrid, Switch, Text, UnstyledButton } from '@mantine/core'
-import { ItemBuilder } from '../ItemBulider/ItemBuilder'
+import { ItemBuilder } from '../../Admin/Builder/ItemBuilder'
 import { Item as ItemType, RestaurantMenu } from '@/types/RestaurantMenu'
 
 //Hooks

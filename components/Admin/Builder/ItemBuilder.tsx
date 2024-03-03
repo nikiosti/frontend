@@ -6,8 +6,8 @@ import { useDisclosure } from '@mantine/hooks'
 import { usePostData } from '@/hook/usePostData'
 
 //Components
-import { Button, Center, Checkbox, Group, Modal, Stack, Text } from '@mantine/core'
-import { ItemForm } from '../../Admin/Forms/ItemForm/ItemForm'
+import { Button, Center, Checkbox, Group, Modal, ScrollArea, Stack, Text } from '@mantine/core'
+import { ItemForm } from '../Forms/ItemForm/ItemForm'
 
 //Styles
 import styles from './ItemBuilder.module.css'
@@ -73,6 +73,7 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
         </Center>
       </Button>
       <Modal
+        scrollAreaComponent={ScrollArea.Autosize}
         opened={opened}
         onClose={close}
         title={
@@ -80,7 +81,7 @@ export const ItemBuilder = ({ category_ref }: { category_ref: string }) => {
             <Text fw={700}>Новая позиция</Text>
           </Group>
         }
-        size="xl"
+        size="lg"
       >
         <ItemForm form={form} formSubmit={handlePostMenuItem}>
           <Button type="submit" mt="xs" fullWidth>
