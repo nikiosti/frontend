@@ -1,22 +1,7 @@
 'use client'
 
 import { RestaurantMenu } from '@/types/RestaurantMenu'
-import {
-  ActionIcon,
-  AppShell,
-  Box,
-  Burger,
-  Center,
-  Group,
-  Indicator,
-  Modal,
-  RemoveScroll,
-  ScrollArea,
-  SimpleGrid,
-  Text,
-  UnstyledButton,
-  rem,
-} from '@mantine/core'
+import { AppShell, Box, Modal, RemoveScroll, ScrollArea, SimpleGrid, Text, UnstyledButton, rem } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useGetData } from '@/hook/useGetData'
 
@@ -29,10 +14,18 @@ import { useShallow } from 'zustand/react/shallow'
 //Types
 import { Item as ItemType } from '@/types/RestaurantMenu'
 
-import { Logotype, Item } from '@/components/General'
+import { Item } from '@/components/General'
 
-import { IconBasket } from '@tabler/icons-react'
-import { CategoriesSticky, Categories, Cart, CartTitle, CartTotal, Restautant, ItemModal } from '@/components/Menu'
+import {
+  CategoriesSticky,
+  Categories,
+  Cart,
+  CartTitle,
+  CartTotal,
+  Restautant,
+  ItemModal,
+  Burger,
+} from '@/components/Menu'
 
 const MenuLayout = ({ children, params }: { children: React.ReactNode; params: { menuId: string } }) => {
   const { data }: UseQueryResult<RestaurantMenu> = useGetData(
@@ -59,14 +52,14 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
             Меню
           </Text>
         </AppShell.Section>
-        <AppShell.Section component={ScrollArea.Autosize} my="md" visibleFrom="lg">
+        <AppShell.Section grow component={ScrollArea} my="md" visibleFrom="lg">
           <Categories data={data} />
         </AppShell.Section>
 
         <AppShell.Section hiddenFrom="lg">
           <CartTitle clearItems={clearItems} />
         </AppShell.Section>
-        <AppShell.Section hiddenFrom="lg" h="100%">
+        <AppShell.Section hiddenFrom="lg" h="100%" component={ScrollArea} grow>
           <Cart />
         </AppShell.Section>
 
@@ -76,27 +69,7 @@ const MenuLayout = ({ children, params }: { children: React.ReactNode; params: {
       </AppShell.Navbar>
 
       <AppShell.Main>
-        <Box
-          style={{
-            zIndex: 100,
-            position: 'fixed',
-            right: 12,
-            top: 10,
-            borderRadius: '100px',
-            backgroundColor: '#F4F4F4',
-            width: 40,
-            height: 40,
-
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Indicator label={items.length} disabled={!items.length} color="dark" size={20} radius="xl">
-            <Burger variant="filled" onClick={toggle} opened={opened} />
-          </Indicator>
-        </Box>
-
+        <Burger items={items} opened={opened} toggle={toggle} />
         <Restautant restaurant={data} />
         <CategoriesSticky restaurantMenu={data} />
         {data?.categories.map((category) => (

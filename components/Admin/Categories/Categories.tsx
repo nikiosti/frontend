@@ -4,12 +4,13 @@ import { useDeleteData } from '@/hook/useDeleteData'
 import { usePatchData } from '@/hook/usePatchData'
 import { CategoryItem } from '@/types/Category'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
-import { Button, Container, Modal, Paper, Text, UnstyledButton } from '@mantine/core'
+import { Button, Container, Modal, Text, UnstyledButton } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { CategoryForm } from '@/components/Admin/Forms/CategoryForm/CategoryForm'
 
 import styles from './Categories.module.css'
+import { IconTrash } from '@tabler/icons-react'
 
 const CategoryCard = ({
   category,
@@ -19,13 +20,11 @@ const CategoryCard = ({
   onOpenCategoryModal: (form: CategoryItem) => void
 }) => {
   return (
-    <Paper p="xs" my="xs" radius={12} className={styles.card}>
-      <UnstyledButton my={0} onClick={() => onOpenCategoryModal(category)} w="100%">
-        <Text fw={500} fz="16">
-          {category.name}
-        </Text>
-      </UnstyledButton>
-    </Paper>
+    <UnstyledButton onClick={() => onOpenCategoryModal(category)} w="100%" className={styles.card}>
+      <Text fw={500} fz="16">
+        {category.name}
+      </Text>
+    </UnstyledButton>
   )
 }
 
@@ -74,13 +73,18 @@ export const Categories = ({ menu }: { menu: RestaurantMenu | undefined }) => {
         }
       >
         <CategoryForm form={form} formSubmit={handlePatchCategory}>
-          <Button type="submit" radius="xl" fullWidth>
+          <Button type="submit" fullWidth>
             Сохранить
           </Button>
           <Container>
-            <UnstyledButton mt="xs" onClick={handleDeleteCategory}>
-              <Text c="dimmed">Удалить</Text>
-            </UnstyledButton>
+            <Button
+              onClick={handleDeleteCategory}
+              variant="subtle"
+              color="red"
+              rightSection={<IconTrash stroke={1.5} />}
+            >
+              Удалить
+            </Button>
           </Container>
         </CategoryForm>
       </Modal>

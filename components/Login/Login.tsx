@@ -38,19 +38,19 @@ export const Login = () => {
   return (
     <AppShell
       header={{
-        height: 80,
+        height: 50,
       }}
       padding={5}
     >
-      <AppShell.Header bg="#ecedfd" px="lg">
+      <AppShell.Header bg="#ecedfd" px="xs">
         <Group h="100%" justify="space-between">
           <Link href="/">
-            <Logotype order={1} />
+            <Logotype />
           </Link>
         </Group>
       </AppShell.Header>
       <AppShell.Main bg="#ecedfd">
-        <Container maw={460}>
+        <Container maw={460} mt="xl">
           <Paper p="xl" radius={12}>
             <form onSubmit={form.onSubmit(handleLogin)}>
               <Title order={4} fz={30} ta="center">

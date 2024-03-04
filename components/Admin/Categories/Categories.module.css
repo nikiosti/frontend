@@ -4,4 +4,7 @@
     cursor: pointer;
   }
   background-color: #f4f4f4;
+  padding: var(--mantine-spacing-xs);
+  margin-top: var(--mantine-spacing-xs);
+  border-radius: rem(12px);
 }
