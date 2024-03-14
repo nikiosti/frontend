@@ -4,7 +4,7 @@ import { useDeleteData } from '@/hook/useDeleteData'
 import { usePatchData } from '@/hook/usePatchData'
 import { CategoryItem } from '@/types/Category'
 import { RestaurantMenu } from '@/types/RestaurantMenu'
-import { Button, Container, Modal, Text, UnstyledButton } from '@mantine/core'
+import { Button, Center, Container, Modal, Text, UnstyledButton } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { CategoryForm } from '@/components/Admin/Forms/CategoryForm/CategoryForm'
@@ -76,7 +76,8 @@ export const Categories = ({ menu }: { menu: RestaurantMenu | undefined }) => {
           <Button type="submit" fullWidth>
             Сохранить
           </Button>
-          <Container>
+
+          <Center mt="xs">
             <Button
               onClick={handleDeleteCategory}
               variant="subtle"
@@ -85,7 +86,7 @@ export const Categories = ({ menu }: { menu: RestaurantMenu | undefined }) => {
             >
               Удалить
             </Button>
-          </Container>
+          </Center>
         </CategoryForm>
       </Modal>
     </>

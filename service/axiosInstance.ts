@@ -8,6 +8,7 @@ const axiosClient = axios.create({
   headers: {
     'Content-Type': 'multipart/form-data',
   },
+  withCredentials: false
 })
 
 axiosClient.interceptors.request.use(

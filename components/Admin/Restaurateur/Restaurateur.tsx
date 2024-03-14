@@ -1,12 +1,20 @@
 'use client'
-import { ActionIcon, Avatar, Badge, Box, Group, Paper, RemoveScroll, Text } from '@mantine/core'
+import { ActionIcon, Badge, Group, Text } from '@mantine/core'
 
 import { useGetData } from '@/hook/useGetData'
-import { IconLogout, IconUser } from '@tabler/icons-react'
-import Link from 'next/link'
+import { IconLogout } from '@tabler/icons-react'
+
+import { useRouter } from 'next/navigation'
 
 export const Restaurateur = () => {
   const { data } = useGetData('restaurateur', 'restaurateur/')
+
+  const router = useRouter()
+  const handleSignOut = () => {
+    localStorage.removeItem('access')
+    localStorage.removeItem('refresh')
+    router.push('/login')
+  }
 
   return (
     <Group justify="space-between" pt="xs">
@@ -23,7 +31,7 @@ export const Restaurateur = () => {
         </Text>
       </div>
 
-      <ActionIcon variant="transparent" radius="xl" color="dark" size={40}>
+      <ActionIcon variant="transparent" radius="xl" color="dark" size={40} onClick={handleSignOut}>
         <IconLogout stroke={1} size={30} />
       </ActionIcon>
     </Group>

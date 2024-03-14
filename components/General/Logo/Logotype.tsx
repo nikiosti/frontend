@@ -7,7 +7,7 @@ export const Logotype = () => {
     <Group>
       <div className={styles.logo}></div>
       <div>
-        <Text fz={24}>Едадед</Text>
+        <Text>Едадед</Text>
       </div>
     </Group>
   )

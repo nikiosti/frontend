@@ -1,0 +1,59 @@
+.titleText {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  color: var(--mantine-color-black);
+  text-align: center;
+  line-height: 1;
+  font-size: rem(25px);
+  @media (min-width: $mantine-breakpoint-sm) {
+    font-size: rem(45px);
+  }
+}
+
+.subTitleText {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  color: var(--mantine-color-black);
+  font-size: 25px;
+  line-height: 1;
+  @media (min-width: $mantine-breakpoint-xs) {
+    font-size: rem(25px);
+  }
+}
+.bodyText {
+  font-family: 'Merriweather', serif;
+  font-weight: 400;
+  color: var(--mantine-color-black);
+  line-height: 1.5;
+  font-size: 14px;
+  @media (min-width: $mantine-breakpoint-xs) {
+    font-size: rem(20px);
+  }
+}
+
+.link {
+  color: var(--mantine-color-dimmed);
+}
+
+.iconMinus {
+  color: var(--mantine-color-white);
+  fill: var(--mantine-color-red-6);
+  height: 60px;
+  width: 60px;
+}
+
+.card {
+  background-color: var(--mantine-color-white);
+  border-radius: rem(12px);
+  height: rem(350px);
+
+  padding: var(--mantine-spacing-xs);
+}
+
+.item {
+  width: rem(200px);
+  height: rem(250px);
+  border-radius: rem(12px);
+
+  transition: 500ms;
+}

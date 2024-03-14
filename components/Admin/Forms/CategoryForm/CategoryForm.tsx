@@ -1,6 +1,6 @@
 'use client'
 import { CategoryItem } from '@/types/Category'
-import { Group, TextInput } from '@mantine/core'
+import { Box, Group, TextInput } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form'
 
 export const CategoryForm = ({
@@ -21,9 +21,7 @@ export const CategoryForm = ({
         placeholder="Напитки"
         label="Название категории"
       />
-      <Group mt="xs" wrap="wrap">
-        {children}
-      </Group>
+      <Box mt="xs">{children}</Box>
     </form>
   )
 }

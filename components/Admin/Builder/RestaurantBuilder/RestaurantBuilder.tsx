@@ -10,6 +10,7 @@ import { Restaurant } from '@/types/Restaurant'
 
 import { IconPlus } from '@tabler/icons-react'
 
+
 export const RestaurantBuilder = ({
   form,
   formSubmit,
@@ -21,12 +22,14 @@ export const RestaurantBuilder = ({
 }) => {
   const [openedRestaurant, { close: closeRestaurant, open: openRestaurant }] = useDisclosure(false)
 
+
+
   return (
     <>
       <Tooltip withArrow label="Новое заведение">
         <Avatar variant="transparent" size={45}>
           <ActionIcon size="xl" variant="transparent" radius="xl" onClick={openRestaurant}>
-            <IconPlus stroke={1.5} color="#000" size={45} />
+            <IconPlus stroke={1} color="#000" size={45} />
           </ActionIcon>
         </Avatar>
       </Tooltip>

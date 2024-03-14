@@ -96,6 +96,7 @@ export const Items = ({ data }: { data: RestaurantMenu | undefined }) => {
           </SimpleGrid>
         </div>
       ))}
+      
 
       <Modal
         scrollAreaComponent={ScrollArea.Autosize}
