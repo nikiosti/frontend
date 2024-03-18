@@ -3,7 +3,18 @@
 import { useEffect } from 'react'
 
 import { useForm } from '@mantine/form'
-import { TextInput, PasswordInput, Button, Paper, Container, Title, AppShell, Center, Text, Group } from '@mantine/core'
+import {
+  TextInput,
+  PasswordInput,
+  Button,
+  Paper,
+  Container,
+  Title,
+  AppShell,
+  Center,
+  Text,
+  Group,
+} from '@mantine/core'
 
 import { useLogin } from '@/hook/useLogin'
 import { useRouter } from 'next/navigation'
@@ -57,13 +68,32 @@ export const Login = () => {
                 Вход
               </Title>
 
-              <TextInput {...form.getInputProps('username')} mt="xs" size="lg" placeholder="Логин" required />
-              <PasswordInput {...form.getInputProps('password')} mt="xs" size="lg" placeholder="Пароль" required />
-              <Button type="submit" loading={isPending} mt="lg" fullWidth radius="xl" size="lg">
+              <TextInput
+                {...form.getInputProps('username')}
+                mt="xs"
+                size="lg"
+                placeholder="Логин"
+                required
+              />
+              <PasswordInput
+                {...form.getInputProps('password')}
+                mt="xs"
+                size="lg"
+                placeholder="Пароль"
+                required
+              />
+              <Button
+                type="submit"
+                loading={isPending}
+                mt="lg"
+                fullWidth
+                radius="xl"
+                size="lg"
+              >
                 Войти
               </Button>
             </form>
-            <Link href="/register">
+            <Link href="/">
               <Text c="dimmed" ta="center" mt="xs">
                 Регестрация
               </Text>

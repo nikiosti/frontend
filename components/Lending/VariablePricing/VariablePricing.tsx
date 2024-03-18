@@ -1,23 +1,25 @@
 'use client'
-import { Center, Avatar, Text, Paper } from '@mantine/core'
+import { Center, Avatar, Text, Paper, Group } from '@mantine/core'
 export const VariablePricing = () => {
   return (
-    <>
+    <Group wrap="nowrap">
       <Center>
-        <Avatar size={130} src="/hachapuri.webp" />
+        <Avatar size={80} src="/hachapuri.webp" />
       </Center>
-      <Text my="xs" ta="center" fw={500} fz={20}>
-        Хачапури по-аджарски
-      </Text>
-      <Center>
-        <Paper withBorder radius={100} p="xs" mr="xs">
-          350 грамм, 17 руб
-        </Paper>
+      <div>
+        <Text my="xs" fw={500} fz={18}>
+          Хачапури по-аджарски
+        </Text>
 
-        <Paper withBorder radius={100} p="xs">
-          700 грамм, 24 руб
-        </Paper>
-      </Center>
-    </>
+        <Group wrap="nowrap">
+          <Paper withBorder radius={100} p="xs">
+            <Text fz="xs">350 грамм</Text>
+          </Paper>
+          <Paper withBorder radius={100} p="xs">
+            <Text fz="xs">700 грамм</Text>
+          </Paper>
+        </Group>
+      </div>
+    </Group>
   )
 }

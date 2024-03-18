@@ -1,6 +1,17 @@
 'use client'
 
-import { ActionIcon, Avatar, Box, Button, Center, Container, Group, Paper, Stack, Text } from '@mantine/core'
+import {
+  ActionIcon,
+  Avatar,
+  Box,
+  Button,
+  Center,
+  Container,
+  Group,
+  Paper,
+  Stack,
+  Text,
+} from '@mantine/core'
 import { IconMinus, IconPlus } from '@tabler/icons-react'
 
 interface ItemGroup {
@@ -16,7 +27,7 @@ const CartItemGroup = ({ item }: { item: ItemGroup }) => {
       <Group justify="space-between" wrap="nowrap">
         <Group wrap="nowrap">
           <Avatar size="md" src={item.image} radius={8} />
-          <Text fw={500} fz={18} lineClamp={1}>
+          <Text fw={500} fz="md" lineClamp={1}>
             {item.name}
           </Text>
         </Group>
@@ -25,7 +36,15 @@ const CartItemGroup = ({ item }: { item: ItemGroup }) => {
           <ActionIcon variant="transparent" color="#000">
             <IconMinus stroke={1} />
           </ActionIcon>
-          <Box w={30} h={30} style={{ borderRadius: 100, border: '1px solid #000', backgroundColor: '#fff' }}>
+          <Box
+            w={30}
+            h={30}
+            style={{
+              borderRadius: 100,
+              border: '1px solid #000',
+              backgroundColor: '#fff',
+            }}
+          >
             <Text ta="center" fz={20}>
               {item.quantity}
             </Text>
@@ -43,7 +62,8 @@ export const CartItemsGroup = () => {
   const items: ItemGroup[] = [
     {
       name: 'Харчо',
-      image: 'https://i.lefood.menu/wp-content/uploads/w_images/2022/12/recept-50563-620x413.jpg',
+      image:
+        'https://i.lefood.menu/wp-content/uploads/w_images/2022/12/recept-50563-620x413.jpg',
       price: 14,
       quantity: 1,
     },
