@@ -8,12 +8,12 @@ export const CartTotal = ({ items }: { items: GroupedItem[] }) => {
     .reduce((total, groupedItem) => {
       return total + (groupedItem.price.price || 0) * groupedItem.quantity
     }, 0)
-    .toFixed(2)
+    .toLocaleString('ru-RU', { style: 'currency', currency: 'BYN' })
 
   return (
     <Paper p="xs" radius={12} bg="#F4F4F4">
       <Text fw={500} size="xl" ta="center">
-        Заказ на {totalPrice} рублей
+        Заказ на {totalPrice}
       </Text>
     </Paper>
   )
