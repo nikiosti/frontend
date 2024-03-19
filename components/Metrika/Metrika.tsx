@@ -1,12 +1,16 @@
 'use client'
 
 import { useEffect } from 'react'
+
 import { usePathname, useSearchParams } from 'next/navigation'
 import Script from 'next/script'
 
-export function Metrika() {
+declare const ym: any
+
+export const Metrika = () => {
   const pathName = usePathname()
   const searchParams = useSearchParams()
+
   useEffect(() => {
     ym(96787117, 'hit', window.location.href)
   }, [pathName, searchParams])
