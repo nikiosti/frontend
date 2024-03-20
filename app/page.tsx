@@ -259,7 +259,13 @@ const Home = () => {
                   type="submit"
                   mt="xs"
                   loading={isPending}
-                  onClick={() => mutate(form.values)}
+                  onClick={() => {
+                    if (form.isValid()) {
+                      mutate(form.values)
+                      form.reset()
+                      alert('Заявка отправлена')
+                    }
+                  }}
                 >
                   Заказать
                 </Button>
