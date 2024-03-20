@@ -95,7 +95,7 @@ export const Login = () => {
             </form>
             <Link href="/">
               <Text c="dimmed" ta="center" mt="xs">
-                Регестрация
+                Регистрация
               </Text>
             </Link>
           </Paper>
