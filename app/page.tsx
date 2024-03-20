@@ -24,6 +24,7 @@ import {
   RestaurantsAvatarGroup,
   CartItemsGroup,
   VariablePricing,
+  MenuExampleLink,
 } from '@/components/Lending'
 
 import { useForm, isEmail, isNotEmpty } from '@mantine/form'
@@ -225,15 +226,7 @@ const Home = () => {
                 взаимодействие, минуя бумажную альтернативу.
               </Text>
             </Paper>
-            <Button
-              h="100%"
-              radius={12}
-              mih="300"
-              variant="gradient"
-              gradient={{ from: 'violet', to: 'blue', deg: 322 }}
-            >
-              Пример меню
-            </Button>
+            <MenuExampleLink />
             <Paper radius={12} p="md" ref={targetRef} withBorder>
               <form
                 onSubmit={form.onSubmit((values) => {
